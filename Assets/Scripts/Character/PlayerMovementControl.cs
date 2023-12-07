@@ -5,6 +5,6 @@ namespace Character
 {
     public class PlayerMovementControl : CharacterMovementControlBase
     {
-
+        
     }
 }
