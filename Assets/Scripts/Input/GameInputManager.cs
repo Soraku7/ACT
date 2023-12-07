@@ -9,10 +9,7 @@ namespace Input
 
         private void Awake()
         {
-            if (_inputActions == null)
-            {
-                _inputActions = new InputActions();
-            }
+            _inputActions ??= new InputActions();
         }
 
         private void OnEnable()
