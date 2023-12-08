@@ -1,14 +1,16 @@
 using System;
+using Unilts.Tools.Singleton;
 using UnityEngine;
 
 namespace Input
 {
-    public class GameInputManager : MonoBehaviour
+    public class GameInputManager : Singleton<GameInputManager>
     {
         private InputActions _inputActions;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _inputActions ??= new InputActions();
         }
 

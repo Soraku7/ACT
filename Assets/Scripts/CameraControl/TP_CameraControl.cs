@@ -7,7 +7,6 @@ namespace CameraControl
 {
     public class TP_CameraControl : MonoBehaviour
     {
-        private GameInputManager _gameInputManager;
         
         [SerializeField , Header("相机参数")] private float controlSpeed;
         [SerializeField] private Vector2 cameraVerticalMaxAngle;
@@ -22,7 +21,6 @@ namespace CameraControl
 
         private void Awake()
         {
-            _gameInputManager = GetComponent<GameInputManager>();
             lookTarget = GameObject.FindWithTag("CameraTarget").transform; 
         }
 
@@ -40,8 +38,8 @@ namespace CameraControl
 
         private void CameraInput()
         {
-            _input.y += _gameInputManager.CameraLock.x * controlSpeed;
-            _input.x -= _gameInputManager.CameraLock.y * controlSpeed;
+            _input.y += GameInputManager.MainInstance.CameraLock.x * controlSpeed;
+            _input.x -= GameInputManager.MainInstance.CameraLock.y * controlSpeed;
             _input.x = Mathf.Clamp(_input.x, cameraVerticalMaxAngle.x, cameraVerticalMaxAngle.y);
         }
 
