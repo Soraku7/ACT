@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Base
 {
@@ -10,14 +11,16 @@ namespace Base
         protected CharacterController Controller;
         protected Animator Anim;
 
+        protected Vector3 MoveDirection;
+
         //地面检测
         protected bool CharacterIsOnGround;
         [SerializeField , Header("地面检测")]
-        protected float GroundDetectionPositionOffset;
+        protected float groundDetectionPositionOffset;
         [SerializeField]
-        protected float DetectionRange;
+        protected float detectionRange;
         [SerializeField]
-        protected LayerMask GroundLayer;
+        protected LayerMask groundLayer;
 
         //重力
         protected readonly float CharacterGravity = -9.8f;
@@ -43,6 +46,12 @@ namespace Base
             UpdateCharacterGravity();
         }
 
+        protected virtual void OnAnimatorMove()
+        {
+            Anim.ApplyBuiltinRootMotion();
+            UpdateCharacterMovementDirection(Anim.deltaPosition);
+        }
+
         /// <summary>
         /// 地面检测
         /// </summary>
@@ -50,9 +59,9 @@ namespace Base
         {
             var position = transform.position;
             var detectPosition = new Vector3(position.x
-                , position.y - GroundDetectionPositionOffset, position.z);
+                , position.y - groundDetectionPositionOffset, position.z);
 
-            return Physics.CheckSphere(detectPosition, DetectionRange, GroundLayer, QueryTriggerInteraction.Ignore);
+            return Physics.CheckSphere(detectPosition, detectionRange, groundLayer, QueryTriggerInteraction.Ignore);
         }
 
         /// <summary>
@@ -102,7 +111,7 @@ namespace Base
         {
             if (Physics.Raycast(transform.position + (transform.up * 5.0f),
                     Vector3.down, out var hit , Controller.height * 0.85f 
-                    , GroundLayer , QueryTriggerInteraction.Ignore))
+                    , groundLayer , QueryTriggerInteraction.Ignore))
             {
                 if (Vector3.Dot(Vector3.up, hit.normal) != 0)
                 {
@@ -113,13 +122,24 @@ namespace Base
             return moveDirection;
         }
 
+        /// <summary>
+        /// 更新角色移动方向
+        /// </summary>
+        /// <param name="direction"></param>
+        protected void UpdateCharacterMovementDirection(Vector3 direction)
+        {
+            MoveDirection = SlopResetDirection(direction);
+            Controller.Move(MoveDirection * Time.deltaTime);
+        }
+        
         private void OnDrawGizmos()
         {
             var position = transform.position;
             var detectPosition = new Vector3(position.x
-                , position.y - GroundDetectionPositionOffset, position.z);
+                , position.y - groundDetectionPositionOffset, position.z);
             
-            Gizmos.DrawWireSphere(detectPosition , DetectionRange);
+            Gizmos.DrawWireSphere(detectPosition , detectionRange);
         }
+       
     }
 }

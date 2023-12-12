@@ -27,5 +27,7 @@ namespace Input
         public Vector2 Movement => _inputActions.GameInput.Movement.ReadValue<Vector2>();
         public Vector2 CameraLock => _inputActions.GameInput.CameraLock.ReadValue<Vector2>();
 
+        public bool Run => _inputActions.GameInput.Run.triggered;
+
     }
 }
