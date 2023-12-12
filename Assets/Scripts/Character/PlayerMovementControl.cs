@@ -3,7 +3,6 @@ using Base;
 using GGG.Tool;
 using Input;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Character
 {
@@ -14,6 +13,13 @@ namespace Character
         [SerializeField]
         private float rotationSmoothTime;
 
+        private Transform _mainCamera;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _mainCamera = Camera.main.transform;
+        }
 
         private void LateUpdate()
         {
@@ -28,7 +34,7 @@ namespace Character
             if (Anim.GetBool("HasInput"))
             {
                 _rotationAngle = Mathf.Atan2(GameInputManager.MainInstance.Movement.x,
-                    GameInputManager.MainInstance.Movement.y) * Mathf.Rad2Deg;
+                    GameInputManager.MainInstance.Movement.y) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
             }
 
 
@@ -43,17 +49,20 @@ namespace Character
         private void UpdateAnimation()
         {
             if (!CharacterIsOnGround) return;
-            Debug.Log(Anim.GetBool("HasInput"));
+            Debug.Log(Anim.GetBool("Run"));
             Anim.SetBool("HasInput" , GameInputManager.MainInstance.Movement != Vector2.zero);
             if (Anim.GetBool("HasInput"))
             {
-                Anim.SetBool("Run" , GameInputManager.MainInstance.Run);
+                if (GameInputManager.MainInstance.Run)
+                {
+                    Anim.SetBool("Run" , true);
+                }
                 Anim.SetFloat("Movement" , (Anim.GetBool("Run")?2f : GameInputManager.MainInstance.Movement.sqrMagnitude) , 0.25f , Time.deltaTime);
             }
             else
             {
                 Anim.SetFloat("Movement" , 0f , 0.25f , Time.deltaTime);
-                if (Anim.GetFloat("Movement") > 0.2f)
+                if (Anim.GetFloat("Movement") < 0.2f)
                 {
                     Anim.SetBool("Run" , false);
                 }
