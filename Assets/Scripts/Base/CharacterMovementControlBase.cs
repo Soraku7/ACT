@@ -1,4 +1,5 @@
 using System;
+using Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -35,6 +36,17 @@ namespace Base
             Anim = GetComponent<Animator>();
         }
 
+        protected virtual void OnEnable()
+        {
+            GameEventManager.MainInstance.AddEventListening<float>("ChangeCharacterVerticalVelocity" , ChangeCharacterVerticalVelocity);
+        }
+
+        protected virtual void OnDisable()
+        {
+            GameEventManager.MainInstance.RemoveEvent<float>("ChangeCharacterVerticalVelocity" , ChangeCharacterVerticalVelocity);
+
+        }
+        
         protected virtual void Start()
         {
             FailOutDeltaTime = FailOutTime;
@@ -140,6 +152,11 @@ namespace Base
             
             Gizmos.DrawWireSphere(detectPosition , detectionRange);
         }
-       
+
+        private void ChangeCharacterVerticalVelocity(float value)
+        {
+            CharacterVerticalVelocity = value;
+            Debug.Log("更改速度");
+        }
     }
 }

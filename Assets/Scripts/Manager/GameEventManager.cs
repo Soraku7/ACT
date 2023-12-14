@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Unilts.Tools.Singleton;
 using UnityEngine;
 
 namespace Manager
 {
-     public class GameEventManager : MonoBehaviour
+     public class GameEventManager: SingletonNonMono<GameEventManager>
      {
           private interface IEventHelp
           {
