@@ -53,6 +53,51 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""dae04aee-a00f-4dbd-8330-5765488cd60d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4032d018-5e08-4b57-8873-51319abdad00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Climb"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6a8f8b1-e816-40fb-a7fe-4dde7180e6ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd25ad58-cf8a-4ac5-85fb-5c0d336adf1c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Takeout"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d5061f6-7dae-495e-b8d2-f4259679bf07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +177,61 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49ea539a-8aca-4a41-974c-170a803a701e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""405a1834-7ee2-461f-93ba-8afa7979ed3a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd811ec2-9bd2-4a18-804b-ca407814920a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Climb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b46e064-ee47-4db4-8510-e42726a2d07e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a13a6ef7-583e-4831-beed-d5aa397e983c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Takeout"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +243,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_GameInput_Movement = m_GameInput.FindAction("Movement", throwIfNotFound: true);
         m_GameInput_CameraLock = m_GameInput.FindAction("CameraLock", throwIfNotFound: true);
         m_GameInput_Run = m_GameInput.FindAction("Run", throwIfNotFound: true);
+        m_GameInput_LAttack = m_GameInput.FindAction("LAttack", throwIfNotFound: true);
+        m_GameInput_RAttack = m_GameInput.FindAction("RAttack", throwIfNotFound: true);
+        m_GameInput_Climb = m_GameInput.FindAction("Climb", throwIfNotFound: true);
+        m_GameInput_Grab = m_GameInput.FindAction("Grab", throwIfNotFound: true);
+        m_GameInput_Takeout = m_GameInput.FindAction("Takeout", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +312,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameInput_Movement;
     private readonly InputAction m_GameInput_CameraLock;
     private readonly InputAction m_GameInput_Run;
+    private readonly InputAction m_GameInput_LAttack;
+    private readonly InputAction m_GameInput_RAttack;
+    private readonly InputAction m_GameInput_Climb;
+    private readonly InputAction m_GameInput_Grab;
+    private readonly InputAction m_GameInput_Takeout;
     public struct GameInputActions
     {
         private @InputActions m_Wrapper;
@@ -214,6 +324,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_GameInput_Movement;
         public InputAction @CameraLock => m_Wrapper.m_GameInput_CameraLock;
         public InputAction @Run => m_Wrapper.m_GameInput_Run;
+        public InputAction @LAttack => m_Wrapper.m_GameInput_LAttack;
+        public InputAction @RAttack => m_Wrapper.m_GameInput_RAttack;
+        public InputAction @Climb => m_Wrapper.m_GameInput_Climb;
+        public InputAction @Grab => m_Wrapper.m_GameInput_Grab;
+        public InputAction @Takeout => m_Wrapper.m_GameInput_Takeout;
         public InputActionMap Get() { return m_Wrapper.m_GameInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +347,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @LAttack.started += instance.OnLAttack;
+            @LAttack.performed += instance.OnLAttack;
+            @LAttack.canceled += instance.OnLAttack;
+            @RAttack.started += instance.OnRAttack;
+            @RAttack.performed += instance.OnRAttack;
+            @RAttack.canceled += instance.OnRAttack;
+            @Climb.started += instance.OnClimb;
+            @Climb.performed += instance.OnClimb;
+            @Climb.canceled += instance.OnClimb;
+            @Grab.started += instance.OnGrab;
+            @Grab.performed += instance.OnGrab;
+            @Grab.canceled += instance.OnGrab;
+            @Takeout.started += instance.OnTakeout;
+            @Takeout.performed += instance.OnTakeout;
+            @Takeout.canceled += instance.OnTakeout;
         }
 
         private void UnregisterCallbacks(IGameInputActions instance)
@@ -245,6 +375,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @LAttack.started -= instance.OnLAttack;
+            @LAttack.performed -= instance.OnLAttack;
+            @LAttack.canceled -= instance.OnLAttack;
+            @RAttack.started -= instance.OnRAttack;
+            @RAttack.performed -= instance.OnRAttack;
+            @RAttack.canceled -= instance.OnRAttack;
+            @Climb.started -= instance.OnClimb;
+            @Climb.performed -= instance.OnClimb;
+            @Climb.canceled -= instance.OnClimb;
+            @Grab.started -= instance.OnGrab;
+            @Grab.performed -= instance.OnGrab;
+            @Grab.canceled -= instance.OnGrab;
+            @Takeout.started -= instance.OnTakeout;
+            @Takeout.performed -= instance.OnTakeout;
+            @Takeout.canceled -= instance.OnTakeout;
         }
 
         public void RemoveCallbacks(IGameInputActions instance)
@@ -267,5 +412,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnCameraLock(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnLAttack(InputAction.CallbackContext context);
+        void OnRAttack(InputAction.CallbackContext context);
+        void OnClimb(InputAction.CallbackContext context);
+        void OnGrab(InputAction.CallbackContext context);
+        void OnTakeout(InputAction.CallbackContext context);
     }
 }

@@ -30,26 +30,27 @@ namespace Base
         protected float FailOutTime = 0.15f;
         protected readonly float CharacterVerticalMaxVelocity = 54f;
         protected Vector3 CharacterVerticalDirection;
+        protected bool _isEnableGravity;
         protected virtual void Awake()
         {
             Controller = GetComponent<CharacterController>();
             Anim = GetComponent<Animator>();
         }
 
-        protected virtual void OnEnable()
+        protected void OnEnable()
         {
-            GameEventManager.MainInstance.AddEventListening<float>("ChangeCharacterVerticalVelocity" , ChangeCharacterVerticalVelocity);
+            GameEventManager.MainInstance.AddEventListening<bool>("EnableCharacterGravity", EnableCharacterGravity);
         }
 
-        protected virtual void OnDisable()
+        protected void OnDisable()
         {
-            GameEventManager.MainInstance.RemoveEvent<float>("ChangeCharacterVerticalVelocity" , ChangeCharacterVerticalVelocity);
-
+            GameEventManager.MainInstance.RemoveEvent<bool>("EnableCharacterGravity", EnableCharacterGravity);
         }
-        
+
         protected virtual void Start()
         {
             FailOutDeltaTime = FailOutTime;
+            _isEnableGravity = true;
         }
 
         protected virtual void Update()
@@ -103,7 +104,7 @@ namespace Base
                     
                 }
 
-                if (CharacterVerticalVelocity < CharacterVerticalMaxVelocity)
+                if (CharacterVerticalVelocity < CharacterVerticalMaxVelocity && _isEnableGravity)
                 {
                     CharacterVerticalVelocity += CharacterGravity * Time.deltaTime;
                 }
@@ -112,6 +113,7 @@ namespace Base
 
         private void UpdateCharacterGravity()
         {
+            if (!_isEnableGravity) return;
             CharacterVerticalDirection.Set(0 , CharacterVerticalVelocity , 0);
             Controller.Move(CharacterVerticalDirection * Time.deltaTime);
         }
@@ -153,10 +155,10 @@ namespace Base
             Gizmos.DrawWireSphere(detectPosition , detectionRange);
         }
 
-        private void ChangeCharacterVerticalVelocity(float value)
+        private void EnableCharacterGravity(bool enable)
         {
-            CharacterVerticalVelocity = value;
-            Debug.Log("更改速度");
+            _isEnableGravity = enable;
+            CharacterVerticalVelocity = (enable) ? -2f : 0;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Character
         private float rotationSmoothTime;
 
         private Transform _mainCamera;
-
+        
         protected override void Awake()
         {
             base.Awake();

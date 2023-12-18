@@ -25,9 +25,20 @@ namespace Input
         }
 
         public Vector2 Movement => _inputActions.GameInput.Movement.ReadValue<Vector2>();
+        
         public Vector2 CameraLock => _inputActions.GameInput.CameraLock.ReadValue<Vector2>();
 
         public bool Run => _inputActions.GameInput.Run.triggered;
+        
+        public bool Climb => _inputActions.GameInput.Climb.triggered;
+        
+        public bool LAttack => _inputActions.GameInput.LAttack.triggered;
+        
+        public bool RAttack => _inputActions.GameInput.RAttack.triggered;
+        
+        public bool Grab => _inputActions.GameInput.Grab.triggered;
+
+        public bool Takeout => _inputActions.GameInput.Takeout.triggered;
 
     }
 }
