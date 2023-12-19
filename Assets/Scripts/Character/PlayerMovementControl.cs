@@ -31,14 +31,14 @@ namespace Character
         {
             if (!CharacterIsOnGround) return;
 
-            if (Anim.GetBool("HasInput"))
+            if (Anim.GetBool(AnimationID.HasInputID))
             {
                 _rotationAngle = Mathf.Atan2(GameInputManager.MainInstance.Movement.x,
                     GameInputManager.MainInstance.Movement.y) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
             }
 
 
-            if (Anim.GetBool("HasInput") && Anim.AnimationAtTag("Motion"))
+            if (Anim.GetBool(AnimationID.HasInputID) && Anim.AnimationAtTag("Motion"))
             {
                 transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, _rotationAngle,
                 ref _angleVelocity, rotationSmoothTime);
@@ -49,22 +49,22 @@ namespace Character
         private void UpdateAnimation()
         {
             if (!CharacterIsOnGround) return;
-            Debug.Log(Anim.GetBool("Run"));
-            Anim.SetBool("HasInput" , GameInputManager.MainInstance.Movement != Vector2.zero);
-            if (Anim.GetBool("HasInput"))
+            Debug.Log(Anim.GetBool(AnimationID.RunID));
+            Anim.SetBool(AnimationID.HasInputID , GameInputManager.MainInstance.Movement != Vector2.zero);
+            if (Anim.GetBool(AnimationID.HasInputID))
             {
                 if (GameInputManager.MainInstance.Run)
                 {
-                    Anim.SetBool("Run" , true);
+                    Anim.SetBool(AnimationID.RunID , true);
                 }
-                Anim.SetFloat("Movement" , (Anim.GetBool("Run")?2f : GameInputManager.MainInstance.Movement.sqrMagnitude) , 0.25f , Time.deltaTime);
+                Anim.SetFloat(AnimationID.MovementID , (Anim.GetBool(AnimationID.RunID)?2f : GameInputManager.MainInstance.Movement.sqrMagnitude) , 0.25f , Time.deltaTime);
             }
             else
             {
-                Anim.SetFloat("Movement" , 0f , 0.25f , Time.deltaTime);
-                if (Anim.GetFloat("Movement") < 0.2f)
+                Anim.SetFloat(AnimationID.MovementID , 0f , 0.25f , Time.deltaTime);
+                if (Anim.GetFloat(AnimationID.MovementID) < 0.2f)
                 {
-                    Anim.SetBool("Run" , false);
+                    Anim.SetBool(AnimationID.RunID , false);
                 }
             }
         }
