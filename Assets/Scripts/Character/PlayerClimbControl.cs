@@ -37,9 +37,12 @@ namespace Character
 
             if (GameInputManager.MainInstance.Climb)
             {
+                float i = _hit.transform.position.y - transform.position.y;
+                float j = i + _hit.collider.bounds.extents.y;
+                
                 var position = Vector3.zero;
                 var rotation = Quaternion.LookRotation(-_hit.normal);
-                position.Set(_hit.point.x, _hit.collider.bounds.size.y - (_hit.point.y  * 2), _hit.point.z);
+                position.Set(_hit.point.x, j, _hit.point.z);
                
                 Debug.Log(_hit.collider.bounds.size.y);
                 switch (_hit.collider.tag)
