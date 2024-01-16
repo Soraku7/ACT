@@ -49,7 +49,6 @@ namespace Character
         private void UpdateAnimation()
         {
             if (!CharacterIsOnGround) return;
-            Debug.Log(Anim.GetBool(AnimationID.RunID));
             Anim.SetBool(AnimationID.HasInputID , GameInputManager.MainInstance.Movement != Vector2.zero);
             if (Anim.GetBool(AnimationID.HasInputID))
             {
