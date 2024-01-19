@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unilts.Tools.Singleton;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Manager
 {
@@ -15,7 +16,7 @@ namespace Manager
             public int InitMaxCount;
         }
 
-        [SerializeField] private List<PoolItem> _configPoolItem = new List<PoolItem>();
+        [SerializeField] private List<PoolItem> configPoolItem = new List<PoolItem>();
 
         private Dictionary<string, Queue<GameObject>> _poolCenter = new Dictionary<string, Queue<GameObject>>();
 
@@ -31,23 +32,23 @@ namespace Manager
         
         private void InitPool()
         {
-            if (_configPoolItem.Count == 0) return;
+            if (configPoolItem.Count == 0) return;
 
-            for (var i = 0; i < _configPoolItem.Count; i++)
+            for (var i = 0; i < configPoolItem.Count; i++)
             {
-                for (int j = 0; j < _configPoolItem[i].InitMaxCount; j ++)
+                for (int j = 0; j < configPoolItem[i].InitMaxCount; j ++)
                 {
-                    var item = Instantiate(_configPoolItem[i].Item, _poolItemParent.transform, true);
+                    var item = Instantiate(configPoolItem[i].Item, _poolItemParent.transform, true);
                     item.SetActive(false);
-                    if (!_poolCenter.ContainsKey(_configPoolItem[i].ItemName))
+                    if (!_poolCenter.ContainsKey(configPoolItem[i].ItemName))
                     {
                         //当前对象池未存在当前对象
-                        _poolCenter.Add(_configPoolItem[i].ItemName , new Queue<GameObject>());
-                        _poolCenter[_configPoolItem[i].ItemName].Enqueue(item);
+                        _poolCenter.Add(configPoolItem[i].ItemName , new Queue<GameObject>());
+                        _poolCenter[configPoolItem[i].ItemName].Enqueue(item);
                     }
                     else
                     {
-                        _poolCenter[_configPoolItem[i].ItemName].Enqueue(item);
+                        _poolCenter[configPoolItem[i].ItemName].Enqueue(item);
                     }
                 }
             }
@@ -61,17 +62,18 @@ namespace Manager
         /// <param name="rotation"></param>
         public void TryGetPoolItem(string itemName , Vector3 position , Quaternion rotation)
         {
+            Debug.Log(itemName);
             if (_poolCenter.ContainsKey(itemName))
             {
-                var item = _poolCenter[name].Dequeue();
+                var item = _poolCenter[itemName].Dequeue();
                 item.transform.position = position;
                 item.transform.rotation = rotation;
                 item.SetActive(true);
-                _poolCenter[name].Enqueue(item);
+                _poolCenter[itemName].Enqueue(item);
             }
             else
             {
-                Debug.Log("当前池子不存在" + name);
+                Debug.Log("当前池子不存在" + itemName);
             }
         }
         

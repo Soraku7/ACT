@@ -624,9 +624,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84211511448e4adb97a6399e5496e11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configPoolItem:
-  - ItemName: ATKSound
+  configPoolItem:
+  - ItemName: AtkSound
     Item: {fileID: 4272307021576308881, guid: f2df6efddd82f8f4abbc8baa379ed800, type: 3}
+    InitMaxCount: 10
+  - ItemName: HitSound
+    Item: {fileID: 4272307021576308881, guid: c9fee43fe059e924f9a73b080d3ee1d9, type: 3}
+    InitMaxCount: 10
+  - ItemName: BlockSound
+    Item: {fileID: 4272307021576308881, guid: 9cdb081c1776ff44b83d2f42ccc575c5, type: 3}
+    InitMaxCount: 10
+  - ItemName: FootSound
+    Item: {fileID: 4272307021576308881, guid: a9dcc41fa17295c4685a704d8febd075, type: 3}
     InitMaxCount: 10
 --- !u!1 &2011827622
 GameObject:

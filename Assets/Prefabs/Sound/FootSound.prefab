@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4272307021576308894}
   - component: {fileID: -6898944387217952815}
   m_Layer: 0
-  m_Name: AtkSound
+  m_Name: FootSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,5 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5d7257bcf14df0acf7c331bfd2ac90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  _type: 3
   _soundAssets: {fileID: 11400000, guid: 020951f4323c7e745ba5e50441902896, type: 2}

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182b0e8e19454a02b86c5d104b07a849, type: 3}
+  m_Name: Sound
+  m_EditorClassIdentifier: 
+  _configSounds:
+  - SoundType: 0
+    AudioClips:
+    - {fileID: 8300000, guid: 9e2bc99f2335faa41b65febd441854ca, type: 3}
+    - {fileID: 8300000, guid: 3b8b39e5c16ab024e8e1e344148fd82c, type: 3}
+    - {fileID: 8300000, guid: 1859e896ec445c44fae9cf79300cb358, type: 3}
+    - {fileID: 8300000, guid: cb813f40f7d4dd746a4575762f12cba9, type: 3}
+    - {fileID: 8300000, guid: 0182cecbb736c0640a3a80b8d77bc95c, type: 3}
+    - {fileID: 8300000, guid: be77051ffc391414dab145e423021275, type: 3}
+    - {fileID: 8300000, guid: a58b8ccea7b0b64479d175bc7d24a818, type: 3}
+    - {fileID: 8300000, guid: 4d9c1920a19761e4985f22b4ebd2a61f, type: 3}
+    - {fileID: 8300000, guid: 4e3a98f9b20e00d4f96ce17be634368d, type: 3}
+    - {fileID: 8300000, guid: bc97eff73f7d25545845575d6913f2d2, type: 3}
+  - SoundType: 1
+    AudioClips:
+    - {fileID: 8300000, guid: 5966a0e0ec5aeef4196363fd83c06ab7, type: 3}
+    - {fileID: 8300000, guid: f968db820aa793e44b93acb03ccd9990, type: 3}
+    - {fileID: 8300000, guid: fa0109b46f160e24dbb2bb3427a906f2, type: 3}
+    - {fileID: 8300000, guid: 1b2495e4769373042976efd69cc5a082, type: 3}
+    - {fileID: 8300000, guid: bf6b7e31a0b832d47b72d4ea4482c8dd, type: 3}
+    - {fileID: 8300000, guid: df79be429e5c25e47bd860c7a73a5ea2, type: 3}
+    - {fileID: 8300000, guid: c09dae46e791f9f4aa3f74a42bba3362, type: 3}
+    - {fileID: 8300000, guid: 6950ec9bd0509fa45a95784c2133b2b0, type: 3}
+    - {fileID: 8300000, guid: 4d4eb8710ac434d49a1c25e5e91f956c, type: 3}
+    - {fileID: 8300000, guid: cab36ad2298e4994494f0f94eaf0c6a7, type: 3}
+  - SoundType: 2
+    AudioClips:
+    - {fileID: 8300000, guid: e7cbb31b752fe1348ba8d803100ac6fe, type: 3}
+    - {fileID: 8300000, guid: c595c6107ad654649a65dcfd337d2476, type: 3}
+    - {fileID: 8300000, guid: 947fc230ea007e640a1368088939dfde, type: 3}
+    - {fileID: 8300000, guid: 3fd0ea750f8d42a4fb2df80bb12f22cc, type: 3}
+    - {fileID: 8300000, guid: 0c63c71d8d48cd34b9cdd2fdf34d6e8b, type: 3}
+    - {fileID: 8300000, guid: 4ebbba7300ef8364989938d34ae033b3, type: 3}
+    - {fileID: 8300000, guid: 9ba52f9b2f1930d48ba81d3cf3a167ba, type: 3}
+    - {fileID: 8300000, guid: 742f2847720d13f4fad8859b54a7943e, type: 3}
+    - {fileID: 8300000, guid: d2f498eb35afb44408084ef8e44bc33f, type: 3}
+    - {fileID: 8300000, guid: d2e786609bbf63f43aadbe5242af2f8f, type: 3}
+  - SoundType: 3
+    AudioClips:
+    - {fileID: 8300000, guid: a7e1710d8a7565b43a7c3235dad1f2fc, type: 3}
+    - {fileID: 8300000, guid: ed95d6c36a255e64a82e9c39dcd1e3bd, type: 3}
+    - {fileID: 8300000, guid: 7e9972b778fd80a41a05842846253dbe, type: 3}
