@@ -759,6 +759,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   rotationSmoothTime: 0.21
+  _slowFootTime: 0
+  _fastFootTime: 0
 --- !u!143 &2113393190
 CharacterController:
   m_ObjectHideFlags: 0
@@ -847,6 +849,14 @@ PrefabInstance:
     - target: {fileID: 3997286011857402841, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.11943405
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860356533960881087, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
+      propertyPath: _fastFootTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860356533960881087, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
+      propertyPath: _slowFootTime
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 6860356533960881087, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: detectionRange

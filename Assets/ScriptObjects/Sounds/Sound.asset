@@ -52,5 +52,5 @@ MonoBehaviour:
   - SoundType: 3
     AudioClips:
     - {fileID: 8300000, guid: a7e1710d8a7565b43a7c3235dad1f2fc, type: 3}
-    - {fileID: 8300000, guid: ed95d6c36a255e64a82e9c39dcd1e3bd, type: 3}
-    - {fileID: 8300000, guid: 7e9972b778fd80a41a05842846253dbe, type: 3}
+    - {fileID: 8300000, guid: a7e1710d8a7565b43a7c3235dad1f2fc, type: 3}
+    - {fileID: 8300000, guid: a7e1710d8a7565b43a7c3235dad1f2fc, type: 3}
