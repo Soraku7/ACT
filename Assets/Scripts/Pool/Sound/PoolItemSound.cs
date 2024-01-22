@@ -30,7 +30,6 @@ namespace Pool.Sound
 
         private void PlaySound()
         {
-            Debug.Log("播放音效");
             _audioSource.clip = _soundAssets.GetAudioClip(_type);
             _audioSource.Play();
             StartRecycle();

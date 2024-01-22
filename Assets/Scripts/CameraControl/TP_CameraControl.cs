@@ -24,6 +24,12 @@ namespace CameraControl
             lookTarget = GameObject.FindWithTag("CameraTarget").transform; 
         }
 
+        private void Start()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        
         private void Update()
         {
             CameraInput();
