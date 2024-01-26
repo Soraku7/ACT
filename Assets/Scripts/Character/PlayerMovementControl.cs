@@ -3,6 +3,7 @@ using Base;
 using GGG.Tool;
 using Input;
 using Manager;
+using Unilts.Tools.DevelopmentTool;
 using UnityEngine;
 
 namespace Character
@@ -21,6 +22,8 @@ namespace Character
         [SerializeField] private float _slowFootTime;
         [SerializeField] private float _fastFootTime;
         
+        //目标朝向
+        private Vector3 _characterTargetDirection;
         protected override void Awake()
         {
             base.Awake();
@@ -48,8 +51,11 @@ namespace Character
             {
                 transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, _rotationAngle,
                 ref _angleVelocity, rotationSmoothTime);
+
+                _characterTargetDirection = Quaternion.Euler(0f, _rotationAngle, 0f) * Vector3.forward;
             }
             
+            Anim.SetFloat(AnimationID.DeltaAngleID , DevelopmentToos.GetDeltaAngle(transform , _characterTargetDirection.normalized));
         }
 
         private void UpdateAnimation()
@@ -61,10 +67,6 @@ namespace Character
                 if (GameInputManager.MainInstance.Run)
                 {
                     Anim.SetBool(AnimationID.RunID , true);
-                }
-                else
-                {
-                    Anim.SetBool(AnimationID.RunID , false);
                 }
                 Anim.SetFloat(AnimationID.MovementID , (Anim.GetBool(AnimationID.RunID)?2f : GameInputManager.MainInstance.Movement.sqrMagnitude) , 0.25f , Time.deltaTime);
             }
