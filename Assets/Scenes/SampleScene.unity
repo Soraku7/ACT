@@ -842,6 +842,10 @@ PrefabInstance:
       propertyPath: _baseCombo
       value: 
       objectReference: {fileID: 11400000, guid: 21c8f5f7c1cfe144096d3ab94514ca47, type: 2}
+    - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
+      propertyPath: _HeavyCombo
+      value: 
+      objectReference: {fileID: 11400000, guid: 8539d63b399985c4f9980c6cac9aab45, type: 2}
     - target: {fileID: 3997286011857402841, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.00077035103
