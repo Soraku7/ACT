@@ -115,6 +115,7 @@ namespace Character
         {
             //更新当前Hit的索引值
             _hitIndex = 0;
+            _currentComboIndex++;
             _currentComboCount += (_currentCombo == _baseCombo) ? 1 : 0;
             if (_currentComboIndex == _currentCombo.TryComboMaxCount())
             {
@@ -133,7 +134,6 @@ namespace Character
         /// </summary>
         private void UpdateComboInfo()
         {
-            _currentComboIndex++;
             _maxColdTime = 0f;
             _canAttackInput = true; 
         }
@@ -185,6 +185,7 @@ namespace Character
         private void Atk()
         {
             TriggerDamage();
+            UpdateHitIndex();
             GamePoolManager.MainInstance.TryGetPoolItem("AtkSound" , transform.position , Quaternion.identity);
         }
         
@@ -222,7 +223,6 @@ namespace Character
             
             if (_animator.AnimationAtTag("Attack"))
             {
-                Debug.Log("AAA");
                 GameEventManager.MainInstance.CallEvent("TakeDamage", _currentCombo.TryGetComboDamage(_currentComboIndex),
                     _currentCombo.TryGetOneHitName(_currentComboIndex, _hitIndex),
                     _currentCombo.TryGetOneParryName(_currentComboIndex, _hitIndex), transform, _currentEnemy);
@@ -243,15 +243,27 @@ namespace Character
             _detectionDirection.Set(_detectionDirection.x , 0f , _detectionDirection.z);
             _detectionDirection = _detectionDirection.normalized;
         }
-
+        
+        /// <summary>
+        /// 角色朝向攻击目标
+        /// </summary>
         private void LookTargetOnAttack()
         {
+            if (DevelopmentToos.DistanceForTarget(_currentEnemy, transform) > 5f) return;
             if (_animator.AnimationAtTag("Attack") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f &&
                 _currentEnemy != null)
             {
                 //动画未执行到一半
                 // transform.rotation = Quaternion.LookRotation(_currentEnemy.position);
+                transform.Look(_currentEnemy.position , 50f);
             }
+        }
+
+        private void UpdateHitIndex()
+        {
+            _hitIndex++;
+            if (_hitIndex == _currentCombo.TryGetHitMaxCount(_currentComboIndex))
+                _hitIndex = 0;
         }
     }
 }

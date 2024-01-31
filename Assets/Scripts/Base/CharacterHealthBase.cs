@@ -1,4 +1,5 @@
 ﻿using System;
+using GGG.Tool;
 using Manager;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ namespace Base
         private void Awake()
         {
             Anim = GetComponent<Animator>();
+        }
+
+        private void Update()
+        {
+            OnHitCharacterLookAttacker();
         }
 
         protected virtual void OnDisable()
@@ -53,6 +59,17 @@ namespace Base
         {
             if(CurrentAttacker == null || CurrentAttacker != attacker)
                 CurrentAttacker = attacker;
+        }
+
+        private void OnHitCharacterLookAttacker()
+        {
+            if (CurrentAttacker == null) return;
+            if (Anim.AnimationAtTag("Hit") || Anim.AnimationAtTag("Parry") &&
+                Anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f)
+            {
+                transform.Look(CurrentAttacker.position , 50f);
+            }
+                
         }
         
         private void OnCharacterHitEventHandler(float damage, string hitName, string parryName, Transform attack,

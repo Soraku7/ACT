@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboName: 1
   damage: 0
-  comboHitName: []
-  comboParryName: []
+  comboHitName:
+  - HitLeftFace
+  - HitRightFace
+  comboParryName:
+  - ParryLeftFace
+  - ParryRightFace
   coldTime: 0.6
   comboPositionOffset: 0
