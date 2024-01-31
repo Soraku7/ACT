@@ -17,7 +17,7 @@ AnimatorStateMachine:
     m_Position: {x: 150, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4885810368948126899}
-    m_Position: {x: 150, y: 330, z: 0}
+    m_Position: {x: 160, y: 340, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -386,7 +386,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -46958011712844453, guid: 4c78717beb2c68448a9bf995da990edb, type: 3}
-  m_Tag: 
+  m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -739,7 +739,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7611850306165555542, guid: 96c14a078aae6ea448943c110db5f399, type: 3}
-  m_Tag: 
+  m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -889,7 +889,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -4728005153347823911, guid: 2328f11ab4ed7b84cbe93332134558ed, type: 3}
-  m_Tag: 
+  m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1030,7 +1030,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 5575505568271713077, guid: 01e421ec7f7ff4344b3f406e60e876f4, type: 3}
-  m_Tag: 
+  m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1083,7 +1083,7 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 3551671112328601862, guid: 01e421ec7f7ff4344b3f406e60e876f4, type: 3}
-  m_Tag: 
+  m_Tag: Attack
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1131,7 +1131,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -1168867738394896859}
-    m_Position: {x: 40, y: 240, z: 0}
+    m_Position: {x: 30, y: 240, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: -8974150968269708686}
     m_Position: {x: 30, y: 330, z: 0}
@@ -1161,7 +1161,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1347075389858854983}
-    m_Position: {x: 582.70844, y: 151.53467, z: 0}
+    m_Position: {x: 590, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -634096553761388380}
     m_Position: {x: 580, y: 230, z: 0}

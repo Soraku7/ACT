@@ -15,7 +15,7 @@ namespace ScriptObjects
         }
         
         /// <summary>
-        /// 获取被攻击的招式信息
+        /// 获取被攻击的招式名字
         /// </summary>
         /// <param name="index"></param>
         /// <param name="hitIndex"></param>
@@ -27,6 +27,19 @@ namespace ScriptObjects
             return allComboData[index].ComboHitName[hitIndex];
         }
 
+        /// <summary>
+        /// 获取被攻击的招式
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="hitIndex"></param>
+        /// <returns></returns>
+        public string TryGetOneParryName(int index , int hitIndex)
+        {
+            if (allComboData.Count == 0) return null;
+            if (allComboData[index].GetHitNameMaxCount() == 0) return null;
+            return allComboData[index].ComboParryName[hitIndex];
+        }
+        
         public float TryGetComboDamage(int index)
         {
             return allComboData.Count == 0 ? 0f : allComboData[index].Damage;

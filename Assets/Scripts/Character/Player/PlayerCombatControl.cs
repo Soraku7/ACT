@@ -3,6 +3,7 @@ using GGG.Tool;
 using Input;
 using Manager;
 using ScriptObjects;
+using Unilts.Tools.DevelopmentTool;
 using UnityEngine;
 
 namespace Character
@@ -10,6 +11,7 @@ namespace Character
     public class PlayerCombatControl : MonoBehaviour
     {
         private Animator _animator;
+        private Transform _camera;
         
         [SerializeField, Header("角色组合技")] private CharacterCombo _baseCombo;
         [SerializeField, Header("角色组合技")] private CharacterCombo _HeavyCombo;
@@ -21,9 +23,15 @@ namespace Character
         private bool _canAttackInput;
         private int _hitIndex;
 
+        [SerializeField, Header("攻击检测")] private float _detectionRange;
+        [SerializeField, Header("攻击检测")] private float _detectionDistance;
+        private Vector3 _detectionDirection;
+        private Transform _currentEnemy;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            if (Camera.main != null) _camera = Camera.main.transform;
         }
 
         private void Start()
@@ -36,6 +44,14 @@ namespace Character
         {
             CharacterBaseAttackInput();
             OnEndAttack();
+            UpdateDetectDirection();
+            LookTargetOnAttack();
+
+        }
+
+        private void FixedUpdate()
+        {
+            DetectionTarget();
         }
 
         private bool CanBaseAttackInput()
@@ -66,8 +82,6 @@ namespace Character
             }
             else if (GameInputManager.MainInstance.RAttack)
             {
-               
-
                 if (_currentComboCount >= 3)
                 {
                     ChangeComboData(_HeavyCombo);
@@ -163,6 +177,81 @@ namespace Character
         private void DashAttack()
         {
             
+        }
+
+        /// <summary>
+        /// 动画触发攻击事件
+        /// </summary>
+        private void Atk()
+        {
+            TriggerDamage();
+            GamePoolManager.MainInstance.TryGetPoolItem("AtkSound" , transform.position , Quaternion.identity);
+        }
+        
+        /// <summary>
+        /// 检测目标
+        /// </summary>
+        private void DetectionTarget()
+        {
+            if (Physics.SphereCast(transform.position + (transform.up * 0.7f), _detectionRange, _detectionDirection,
+                    out var hit, _detectionDistance, 1 << 9, QueryTriggerInteraction.Ignore))
+            {
+                //检测到敌人
+                _currentEnemy = hit.collider.transform;
+            }
+
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position + (transform.forward * _detectionDistance),
+                _detectionRange);
+        }
+
+        /// <summary>
+        /// 伤害触发
+        /// </summary>
+        private void TriggerDamage()
+        {
+            if (_currentEnemy == null) return;
+            
+            //判断敌人方向距离
+            if (Vector3.Dot(transform.forward, DevelopmentToos.DirectionForTarget(transform, _currentEnemy)) <
+                0.85f) return;
+            if (DevelopmentToos.DistanceForTarget(transform, _currentEnemy) > 1.3f) return;
+            
+            if (_animator.AnimationAtTag("Attack"))
+            {
+                Debug.Log("AAA");
+                GameEventManager.MainInstance.CallEvent("TakeDamage", _currentCombo.TryGetComboDamage(_currentComboIndex),
+                    _currentCombo.TryGetOneHitName(_currentComboIndex, _hitIndex),
+                    _currentCombo.TryGetOneParryName(_currentComboIndex, _hitIndex), transform, _currentEnemy);
+            }
+            else
+            {
+                //进行处决动画
+            }
+        }
+
+        /// <summary>
+        /// 更新检测方向
+        /// </summary>
+        private void UpdateDetectDirection()
+        {
+            _detectionDirection = (_camera.forward * GameInputManager.MainInstance.Movement.y) +
+                                  (_camera.right * GameInputManager.MainInstance.Movement.x);
+            _detectionDirection.Set(_detectionDirection.x , 0f , _detectionDirection.z);
+            _detectionDirection = _detectionDirection.normalized;
+        }
+
+        private void LookTargetOnAttack()
+        {
+            if (_animator.AnimationAtTag("Attack") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f &&
+                _currentEnemy != null)
+            {
+                //动画未执行到一半
+                // transform.rotation = Quaternion.LookRotation(_currentEnemy.position);
+            }
         }
     }
 }

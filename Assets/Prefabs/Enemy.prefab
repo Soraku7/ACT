@@ -4006,7 +4006,7 @@ GameObject:
   - component: {fileID: 5194318662278005973}
   m_Layer: 0
   m_Name: LookAt
-  m_TagString: CameraTarget
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
