@@ -5,6 +5,7 @@ using Manager;
 using ScriptObjects;
 using Unilts.Tools.DevelopmentTool;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Character
 {
@@ -14,7 +15,8 @@ namespace Character
         private Transform _camera;
         
         [SerializeField, Header("角色组合技")] private CharacterCombo _baseCombo;
-        [SerializeField, Header("角色组合技")] private CharacterCombo _HeavyCombo;
+        [SerializeField, Header("重攻击")] private CharacterCombo _HeavyCombo;
+        [SerializeField, Header("处决攻击")] private CharacterCombo _finishCombo;
         private CharacterCombo _currentCombo;
 
         private int _currentComboIndex;
@@ -82,6 +84,7 @@ namespace Character
             }
             else if (GameInputManager.MainInstance.RAttack)
             {
+                Debug.Log(_currentComboCount);
                 if (_currentComboCount >= 3)
                 {
                     ChangeComboData(_HeavyCombo);
@@ -115,7 +118,7 @@ namespace Character
         {
             //更新当前Hit的索引值
             _hitIndex = 0;
-            _currentComboIndex++;
+            
             _currentComboCount += (_currentCombo == _baseCombo) ? 1 : 0;
             if (_currentComboIndex == _currentCombo.TryComboMaxCount())
             {
@@ -134,6 +137,7 @@ namespace Character
         /// </summary>
         private void UpdateComboInfo()
         {
+            _currentComboIndex++;
             _maxColdTime = 0f;
             _canAttackInput = true; 
         }
@@ -145,6 +149,7 @@ namespace Character
         {
             _currentComboIndex = 0;
             _maxColdTime = 0;
+            _hitIndex = 0;
         }
 
         /// <summary>
@@ -249,9 +254,9 @@ namespace Character
         /// </summary>
         private void LookTargetOnAttack()
         {
+            if (_currentEnemy == null) return;
             if (DevelopmentToos.DistanceForTarget(_currentEnemy, transform) > 5f) return;
-            if (_animator.AnimationAtTag("Attack") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f &&
-                _currentEnemy != null)
+            if (_animator.AnimationAtTag("Attack") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f)
             {
                 //动画未执行到一半
                 // transform.rotation = Quaternion.LookRotation(_currentEnemy.position);
@@ -264,6 +269,28 @@ namespace Character
             _hitIndex++;
             if (_hitIndex == _currentCombo.TryGetHitMaxCount(_currentComboIndex))
                 _hitIndex = 0;
+        }
+        
+        
+        /// <summary>
+        /// 是否进行处决
+        /// </summary>
+        /// <returns></returns>
+        private bool CanSpecialAttack()
+        {
+            if (_animator.AnimationAtTag("Finish")) return false;
+            if (_currentEnemy == null) return false;
+            return true;
+        }
+
+        private void CharacterFinishAttackInput()
+        {
+            if (CanSpecialAttack()) return;
+            if (GameInputManager.MainInstance.Grab)
+            {
+                _currentComboIndex = Random.Range(0, _finishCombo.TryComboMaxCount());
+                
+            }
         }
     }
 }
