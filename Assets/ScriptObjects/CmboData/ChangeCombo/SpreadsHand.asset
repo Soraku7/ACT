@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboName: SpreadsHand
   damage: 0
-  comboHitName:
-  - 1
-  comboParryName:
-  - 1
+  comboHitName: []
+  comboParryName: []
   coldTime: 1
   comboPositionOffset: 0

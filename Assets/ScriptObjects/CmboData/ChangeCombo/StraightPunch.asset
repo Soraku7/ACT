@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboName: StraightPunch
   damage: 1
-  comboHitName:
-  - 1
-  comboParryName:
-  - 1
+  comboHitName: []
+  comboParryName: []
   coldTime: 1.5
   comboPositionOffset: 0

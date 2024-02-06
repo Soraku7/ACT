@@ -20,5 +20,5 @@ MonoBehaviour:
   comboParryName:
   - ParryLeftFace
   - ParryLeftFace
-  coldTime: 0.6
+  coldTime: 0.85
   comboPositionOffset: 0

@@ -48,7 +48,8 @@ namespace Character
             OnEndAttack();
             UpdateDetectDirection();
             LookTargetOnAttack();
-
+            CharacterFinishAttackInput();
+            MatchPosition();
         }
 
         private void FixedUpdate()
@@ -235,6 +236,7 @@ namespace Character
             else
             {
                 //进行处决动画
+                GameEventManager.MainInstance.CallEvent("CreateDamage" , _finishCombo.TryGetComboDamage(_currentComboIndex));
             }
         }
 
@@ -267,6 +269,7 @@ namespace Character
         private void UpdateHitIndex()
         {
             _hitIndex++;
+            Debug.Log(_currentComboIndex);
             if (_hitIndex == _currentCombo.TryGetHitMaxCount(_currentComboIndex))
                 _hitIndex = 0;
         }
@@ -285,11 +288,33 @@ namespace Character
 
         private void CharacterFinishAttackInput()
         {
-            if (CanSpecialAttack()) return;
+            if (!CanSpecialAttack()) return;
             if (GameInputManager.MainInstance.Grab)
             {
                 _currentComboIndex = Random.Range(0, _finishCombo.TryComboMaxCount());
-                
+                _animator.Play(_finishCombo.TryGetOneComboAction(_currentComboIndex));
+
+                GameEventManager.MainInstance.CallEvent("Execute", _finishCombo.TryGetOneHitName(_currentComboIndex, 0),
+                    transform, _currentEnemy);
+                TimeManager.MainInstance.TryGetOneTimer(0.5f , UpdateComboInfo);
+            }
+        }
+
+        private void MatchPosition()
+        {
+            if (_currentEnemy == null) return;
+            if (!_animator.AnimationAtTag("Finish")) return;
+            if (_animator)
+            {
+                if (!_animator.isMatchingTarget)
+                {
+                    //当前不在匹配状态
+                    transform.Look(_currentEnemy.position , 500f);
+                    _animator.MatchTarget(
+                        _currentEnemy.position +
+                        (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
+                        Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0), 0f, 0.03f);
+                }
             }
         }
     }

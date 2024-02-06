@@ -17,6 +17,9 @@ namespace Base
         {
             GameEventManager.MainInstance.AddEventListening<float , string , string , Transform , Transform>("TakeDamage",
                 OnCharacterHitEventHandler);
+            GameEventManager.MainInstance.AddEventListening<string, Transform, Transform>("Execute",
+                OnCharacterFinishEventHandler);
+            GameEventManager.MainInstance.AddEventListening<float>("CreateDamage", TriggerDamageEventHandler);
         }
 
         private void Awake()
@@ -33,6 +36,9 @@ namespace Base
         {
             GameEventManager.MainInstance.RemoveEvent<float , string , string , Transform , Transform>("TakeDamage",
                 OnCharacterHitEventHandler);
+            GameEventManager.MainInstance.RemoveEvent<string, Transform, Transform>("Execute",
+                OnCharacterFinishEventHandler);
+            GameEventManager.MainInstance.RemoveEvent<float>("CreateDamage", TriggerDamageEventHandler);
         }
 
         /// <summary>
@@ -80,6 +86,19 @@ namespace Base
             SetAttacker(attack);
             CharacterHitAction(damage , hitName , parryName);
             TakeDamage(damage);
+        }
+
+        private void OnCharacterFinishEventHandler(string hitName, Transform attacker, Transform self)
+        {
+            if (self != transform) return;
+            SetAttacker(attacker);
+            Anim.Play(hitName);
+        }
+
+        private void TriggerDamageEventHandler(float damage)
+        {
+            TakeDamage(damage);
+            GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
         }
     }
 }
