@@ -17,5 +17,5 @@ MonoBehaviour:
   comboHitName:
   - ExecuteHit1
   comboParryName: []
-  coldTime: 0.5
-  comboPositionOffset: 0.7
+  coldTime: 0
+  comboPositionOffset: 1.2

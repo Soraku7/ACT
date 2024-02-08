@@ -296,26 +296,32 @@ namespace Character
 
                 GameEventManager.MainInstance.CallEvent("Execute", _finishCombo.TryGetOneHitName(_currentComboIndex, 0),
                     transform, _currentEnemy);
-                TimeManager.MainInstance.TryGetOneTimer(0.5f , UpdateComboInfo);
+                _currentComboIndex = 0;
             }
         }
 
         private void MatchPosition()
         {
             if (_currentEnemy == null) return;
-            if (!_animator.AnimationAtTag("Finish")) return;
-            if (_animator)
+            if (!_animator) return;
+
+            if (_animator.AnimationAtTag("Finish"))
             {
-                if (!_animator.isMatchingTarget)
-                {
-                    //当前不在匹配状态
-                    transform.Look(_currentEnemy.position , 500f);
-                    _animator.MatchTarget(
-                        _currentEnemy.position +
-                        (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
-                        Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0), 0f, 0.03f);
-                }
+                Debug.Log("位置匹配");
+                transform.rotation = Quaternion.LookRotation(-_currentEnemy.forward);
+                RunningMatch(_finishCombo);
             }
+        }
+
+        private void RunningMatch(CharacterCombo combo , float startTime = 0f, float endTime = 0.01f)
+        {
+            if (!_animator.isMatchingTarget)
+            {
+                _animator.MatchTarget(
+                    _currentEnemy.position + (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
+                    Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0f), startTime, endTime);
+            }
+            
         }
     }
 }
