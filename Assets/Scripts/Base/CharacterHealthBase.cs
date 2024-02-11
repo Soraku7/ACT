@@ -19,7 +19,9 @@ namespace Base
                 OnCharacterHitEventHandler);
             GameEventManager.MainInstance.AddEventListening<string, Transform, Transform>("Execute",
                 OnCharacterFinishEventHandler);
-            GameEventManager.MainInstance.AddEventListening<float>("CreateDamage", TriggerDamageEventHandler);
+            GameEventManager.MainInstance.AddEventListening<float , Transform>("CreateDamage", TriggerDamageEventHandler);
+            GameEventManager.MainInstance.AddEventListening<string, Transform, Transform>("Assassinate",
+                OnCharacterAssassinationEventHandler);
         }
 
         private void Awake()
@@ -38,7 +40,9 @@ namespace Base
                 OnCharacterHitEventHandler);
             GameEventManager.MainInstance.RemoveEvent<string, Transform, Transform>("Execute",
                 OnCharacterFinishEventHandler);
-            GameEventManager.MainInstance.RemoveEvent<float>("CreateDamage", TriggerDamageEventHandler);
+            GameEventManager.MainInstance.RemoveEvent<float , Transform>("CreateDamage", TriggerDamageEventHandler);
+            GameEventManager.MainInstance.RemoveEvent<string, Transform, Transform>("Assassinate",
+                OnCharacterAssassinationEventHandler);
         }
 
         /// <summary>
@@ -94,9 +98,18 @@ namespace Base
             SetAttacker(attacker);
             Anim.Play(hitName);
         }
-
-        private void TriggerDamageEventHandler(float damage)
+        
+        private void OnCharacterAssassinationEventHandler(string hitName, Transform attacker, Transform self)
         {
+            if (self != transform) return;
+            SetAttacker(attacker);
+            Anim.Play(hitName);
+        }
+
+        private void TriggerDamageEventHandler(float damage , Transform self)
+        {
+            if (self != transform) return;
+            
             TakeDamage(damage);
             GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
         }

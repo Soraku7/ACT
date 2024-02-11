@@ -912,6 +912,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d5e23e2804bd7eb43b9de93b04d5c082, type: 2}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
+      propertyPath: _assassinCombo
+      value: 
+      objectReference: {fileID: 11400000, guid: aa4734215a79e76468bacab1e8038df8, type: 2}
+    - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _detectionRange
       value: 1
       objectReference: {fileID: 0}

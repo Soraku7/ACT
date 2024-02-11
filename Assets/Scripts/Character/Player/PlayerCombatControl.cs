@@ -13,10 +13,11 @@ namespace Character
     {
         private Animator _animator;
         private Transform _camera;
-        
+
         [SerializeField, Header("角色组合技")] private CharacterCombo _baseCombo;
         [SerializeField, Header("重攻击")] private CharacterCombo _HeavyCombo;
         [SerializeField, Header("处决攻击")] private CharacterCombo _finishCombo;
+        [SerializeField, Header("暗杀攻击")] private CharacterCombo _assassinCombo;
         private CharacterCombo _currentCombo;
 
         private int _currentComboIndex;
@@ -50,6 +51,7 @@ namespace Character
             LookTargetOnAttack();
             CharacterFinishAttackInput();
             MatchPosition();
+            CharacterAssassinationInput();
         }
 
         private void FixedUpdate()
@@ -79,8 +81,9 @@ namespace Character
                 //判断当前组合技是否为空或者基础组合技
                 if (_currentCombo == null || _currentCombo != _baseCombo)
                 {
-                   ChangeComboData(_baseCombo);
-                } 
+                    ChangeComboData(_baseCombo);
+                }
+
                 ExecuteComboAction();
             }
             else if (GameInputManager.MainInstance.RAttack)
@@ -106,7 +109,7 @@ namespace Character
                 {
                     return;
                 }
-                
+
                 ExecuteComboAction();
                 _currentComboCount = 0;
             }
@@ -119,7 +122,7 @@ namespace Character
         {
             //更新当前Hit的索引值
             _hitIndex = 0;
-            
+
             _currentComboCount += (_currentCombo == _baseCombo) ? 1 : 0;
             if (_currentComboIndex == _currentCombo.TryComboMaxCount())
             {
@@ -129,7 +132,7 @@ namespace Character
 
             _maxColdTime = _currentCombo.TryGetColdTime(_currentComboIndex);
             _animator.CrossFadeInFixedTime(_currentCombo.TryGetOneComboAction(_currentComboIndex), 0.1555f, 0, 0f);
-            TimeManager.MainInstance.TryGetOneTimer(_maxColdTime , UpdateComboInfo);
+            TimeManager.MainInstance.TryGetOneTimer(_maxColdTime, UpdateComboInfo);
             _canAttackInput = false;
         }
 
@@ -140,9 +143,9 @@ namespace Character
         {
             _currentComboIndex++;
             _maxColdTime = 0f;
-            _canAttackInput = true; 
+            _canAttackInput = true;
         }
-        
+
         /// <summary>
         /// 重置组合技
         /// </summary>
@@ -182,7 +185,7 @@ namespace Character
         /// </summary>
         private void DashAttack()
         {
-            
+
         }
 
         /// <summary>
@@ -192,9 +195,9 @@ namespace Character
         {
             TriggerDamage();
             UpdateHitIndex();
-            GamePoolManager.MainInstance.TryGetPoolItem("AtkSound" , transform.position , Quaternion.identity);
+            GamePoolManager.MainInstance.TryGetPoolItem("AtkSound", transform.position, Quaternion.identity);
         }
-        
+
         /// <summary>
         /// 检测目标
         /// </summary>
@@ -221,22 +224,24 @@ namespace Character
         private void TriggerDamage()
         {
             if (_currentEnemy == null) return;
-            
+
             //判断敌人方向距离
             if (Vector3.Dot(transform.forward, DevelopmentToos.DirectionForTarget(transform, _currentEnemy)) <
                 0.85f) return;
             if (DevelopmentToos.DistanceForTarget(transform, _currentEnemy) > 1.3f) return;
-            
+
             if (_animator.AnimationAtTag("Attack"))
             {
-                GameEventManager.MainInstance.CallEvent("TakeDamage", _currentCombo.TryGetComboDamage(_currentComboIndex),
+                GameEventManager.MainInstance.CallEvent("TakeDamage",
+                    _currentCombo.TryGetComboDamage(_currentComboIndex),
                     _currentCombo.TryGetOneHitName(_currentComboIndex, _hitIndex),
                     _currentCombo.TryGetOneParryName(_currentComboIndex, _hitIndex), transform, _currentEnemy);
             }
             else
             {
                 //进行处决动画
-                GameEventManager.MainInstance.CallEvent("CreateDamage" , _finishCombo.TryGetComboDamage(_currentComboIndex));
+                GameEventManager.MainInstance.CallEvent("CreateDamage",
+                    _finishCombo.TryGetComboDamage(_currentComboIndex), _currentEnemy);
             }
         }
 
@@ -247,10 +252,10 @@ namespace Character
         {
             _detectionDirection = (_camera.forward * GameInputManager.MainInstance.Movement.y) +
                                   (_camera.right * GameInputManager.MainInstance.Movement.x);
-            _detectionDirection.Set(_detectionDirection.x , 0f , _detectionDirection.z);
+            _detectionDirection.Set(_detectionDirection.x, 0f, _detectionDirection.z);
             _detectionDirection = _detectionDirection.normalized;
         }
-        
+
         /// <summary>
         /// 角色朝向攻击目标
         /// </summary>
@@ -262,7 +267,7 @@ namespace Character
             {
                 //动画未执行到一半
                 // transform.rotation = Quaternion.LookRotation(_currentEnemy.position);
-                transform.Look(_currentEnemy.position , 50f);
+                transform.Look(_currentEnemy.position, 50f);
             }
         }
 
@@ -273,8 +278,8 @@ namespace Character
             if (_hitIndex == _currentCombo.TryGetHitMaxCount(_currentComboIndex))
                 _hitIndex = 0;
         }
-        
-        
+
+
         /// <summary>
         /// 是否进行处决
         /// </summary>
@@ -311,17 +316,55 @@ namespace Character
                 transform.rotation = Quaternion.LookRotation(-_currentEnemy.forward);
                 RunningMatch(_finishCombo);
             }
+            else if (_animator.AnimationAtTag("Assassinate"))
+            {
+                Debug.Log("位置匹配");
+                transform.rotation = Quaternion.LookRotation(_currentEnemy.forward);
+                RunningMatch(_assassinCombo);
+            }
         }
 
-        private void RunningMatch(CharacterCombo combo , float startTime = 0f, float endTime = 0.01f)
+        private void RunningMatch(CharacterCombo combo, float startTime = 0f, float endTime = 0.01f)
         {
-            if (!_animator.isMatchingTarget)
+            if (!_animator.isMatchingTarget && _animator.IsInTransition(0))
             {
                 _animator.MatchTarget(
-                    _currentEnemy.position + (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
-                    Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0f), startTime, endTime);
+                    _currentEnemy.position +
+                    (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
+                    Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0f), startTime,
+                    endTime);
             }
-            
+
+        }
+
+        /// <summary>
+        /// 是否允许暗杀
+        /// </summary>
+        /// <returns></returns>
+        private bool CanAssassination()
+        {
+            if (_currentEnemy == null) return false;
+            if (DevelopmentToos.DistanceForTarget(_currentEnemy, transform) > 1.7f) return false;
+            if (Vector3.Angle(transform.forward, _currentEnemy.forward) > 20f) return false;
+            if (_animator.AnimationAtTag("Assassinate")) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// 触发暗杀
+        /// </summary>
+        private void CharacterAssassinationInput()
+        {
+            if (!CanAssassination()) return;
+
+            if (GameInputManager.MainInstance.Takeout)
+            {
+                _currentComboIndex = Random.Range(0, _assassinCombo.TryComboMaxCount());
+                _animator.Play(_assassinCombo.TryGetOneComboAction(_currentComboIndex), 0, 0);
+                GameEventManager.MainInstance.CallEvent("Assassinate",
+                    _assassinCombo.TryGetOneHitName(_currentComboIndex, 0), transform, _currentEnemy);
+                ResetComboInfo();
+            }
         }
     }
 }
