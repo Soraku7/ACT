@@ -107,5 +107,14 @@ namespace Character
             GamePoolManager.MainInstance.TryGetPoolItem("FootSound" , transform.position , Quaternion.identity);
             _nextFootTime = (Anim.GetFloat(AnimationID.MovementID) > 1.1f) ? _fastFootTime : _slowFootTime;
         }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            Rigidbody rig;
+            if (hit.transform.TryGetComponent(out rig))
+            {
+                rig.AddForce(transform.forward * 20f , ForceMode.Force);
+            }
+        }
     }
 }
