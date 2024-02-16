@@ -4,6 +4,7 @@ using Input;
 using Manager;
 using ScriptObjects;
 using Unilts.Tools.DevelopmentTool;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,8 +27,13 @@ namespace Character
         private bool _canAttackInput;
         private int _hitIndex;
 
+        private int _finishComboIndex;
+
         [SerializeField, Header("攻击检测")] private float _detectionRange;
         [SerializeField, Header("攻击检测")] private float _detectionDistance;
+        [SerializeField] private LayerMask _enemyLayer;
+
+        private Collider[] _units;
         private Vector3 _detectionDirection;
         private Transform _currentEnemy;
 
@@ -47,7 +53,11 @@ namespace Character
         {
             CharacterBaseAttackInput();
             OnEndAttack();
-            UpdateDetectDirection();
+            
+            // UpdateDetectDirection();
+            GetOneEnemyUnit();
+            ClearEnemy();
+            
             LookTargetOnAttack();
             CharacterFinishAttackInput();
             MatchPosition();
@@ -56,7 +66,8 @@ namespace Character
 
         private void FixedUpdate()
         {
-            DetectionTarget();
+            // DetectionTarget();
+            GetNearUnit();
         }
 
         private bool CanBaseAttackInput()
@@ -212,6 +223,44 @@ namespace Character
 
         }
 
+        private void GetNearUnit()
+        {
+            if (_currentEnemy != null) return;
+            
+            _units = Physics.OverlapSphere(transform.position + (transform.up * 0.7f), _detectionRange, _enemyLayer,
+                QueryTriggerInteraction.Ignore);
+        }
+
+        private void GetOneEnemyUnit()
+        {
+            if (_units.Length == 0) return;
+            if (_currentEnemy != null && DevelopmentToos.DistanceForTarget(_currentEnemy , transform) > 3f) return;
+            //if (_animator.GetFloat(AnimationID.MovementID) > .7f) return;
+
+            Transform tempEnemy = null;
+            var distance = Mathf.Infinity;
+            foreach (var e in _units)
+            {
+                var dis = DevelopmentToos.DistanceForTarget(e.transform, transform);
+                if (dis < distance)
+                {
+                    tempEnemy = e.transform;
+                    distance = dis;
+                }
+            }
+
+            _currentEnemy = tempEnemy != null ? tempEnemy : _currentEnemy;
+        }
+
+        private void ClearEnemy()
+        {
+            if (_currentEnemy == null) return;
+            if (_animator.GetFloat(AnimationID.MovementID) > .7f)
+            {
+                _currentEnemy = null;
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position + (transform.forward * _detectionDistance),
@@ -288,6 +337,7 @@ namespace Character
         {
             if (_animator.AnimationAtTag("Finish")) return false;
             if (_currentEnemy == null) return false;
+            if (_currentComboCount < 2) return false;
             return true;
         }
 
@@ -301,7 +351,8 @@ namespace Character
 
                 GameEventManager.MainInstance.CallEvent("Execute", _finishCombo.TryGetOneHitName(_currentComboIndex, 0),
                     transform, _currentEnemy);
-                _currentComboIndex = 0;
+                ResetComboInfo();
+                _currentComboCount = 0;
             }
         }
 
@@ -314,23 +365,23 @@ namespace Character
             {
                 Debug.Log("位置匹配");
                 transform.rotation = Quaternion.LookRotation(-_currentEnemy.forward);
-                RunningMatch(_finishCombo);
+                RunningMatch(_finishCombo , _finishComboIndex);
             }
             else if (_animator.AnimationAtTag("Assassinate"))
             {
                 Debug.Log("位置匹配");
                 transform.rotation = Quaternion.LookRotation(_currentEnemy.forward);
-                RunningMatch(_assassinCombo);
+                RunningMatch(_assassinCombo , _finishComboIndex);
             }
         }
 
-        private void RunningMatch(CharacterCombo combo, float startTime = 0f, float endTime = 0.01f)
+        private void RunningMatch(CharacterCombo combo, int index ,float startTime = 0f, float endTime = 0.01f)
         {
             if (!_animator.isMatchingTarget && _animator.IsInTransition(0))
             {
                 _animator.MatchTarget(
                     _currentEnemy.position +
-                    (-transform.forward * _finishCombo.TryGetComboPosition(_currentComboIndex)),
+                    (-transform.forward * _finishCombo.TryGetComboPosition(index)),
                     Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0f), startTime,
                     endTime);
             }
@@ -347,6 +398,7 @@ namespace Character
             if (DevelopmentToos.DistanceForTarget(_currentEnemy, transform) > 1.7f) return false;
             if (Vector3.Angle(transform.forward, _currentEnemy.forward) > 20f) return false;
             if (_animator.AnimationAtTag("Assassinate")) return false;
+            if (_animator.AnimationAtTag("Finish")) return false;
             return true;
         }
 
@@ -359,10 +411,10 @@ namespace Character
 
             if (GameInputManager.MainInstance.Takeout)
             {
-                _currentComboIndex = Random.Range(0, _assassinCombo.TryComboMaxCount());
-                _animator.Play(_assassinCombo.TryGetOneComboAction(_currentComboIndex), 0, 0);
+                _finishComboIndex = Random.Range(0, _assassinCombo.TryComboMaxCount());
+                _animator.Play(_assassinCombo.TryGetOneComboAction(_finishComboIndex), 0, 0);
                 GameEventManager.MainInstance.CallEvent("Assassinate",
-                    _assassinCombo.TryGetOneHitName(_currentComboIndex, 0), transform, _currentEnemy);
+                    _assassinCombo.TryGetOneHitName(_finishComboIndex, 0), transform, _currentEnemy);
                 ResetComboInfo();
             }
         }

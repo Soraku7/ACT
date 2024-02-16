@@ -24,6 +24,7 @@ namespace ScriptObjects
         {
             if (allComboData.Count == 0) return null;
             if (allComboData[index].GetHitNameMaxCount() == 0) return null;
+            Debug.Log("HitNameIndex" + allComboData[index].ComboHitName[hitIndex]);
             return allComboData[index].ComboHitName[hitIndex];
         }
 

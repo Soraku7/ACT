@@ -32,11 +32,11 @@ namespace Character
 
         private void LateUpdate()
         {
-            CharacterRotation();
+            CharacterRotationControl();
             UpdateAnimation();
         }
 
-        private void CharacterRotation()
+        private void CharacterRotationControl()
         {
             if (!CharacterIsOnGround) return;
 
@@ -46,9 +46,11 @@ namespace Character
                     GameInputManager.MainInstance.Movement.y) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
             }
 
-
             if (Anim.GetBool(AnimationID.HasInputID) && Anim.AnimationAtTag("Motion"))
             {
+                if (Anim.GetFloat(AnimationID.DeltaAngleID) < -135) return;
+                if (Anim.GetFloat(AnimationID.DeltaAngleID) > 135) return;
+                
                 transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, _rotationAngle,
                 ref _angleVelocity, rotationSmoothTime);
 
