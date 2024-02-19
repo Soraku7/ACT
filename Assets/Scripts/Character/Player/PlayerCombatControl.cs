@@ -235,7 +235,7 @@ namespace Character
         {
             if (_units.Length == 0) return;
             if (_currentEnemy != null && DevelopmentToos.DistanceForTarget(_currentEnemy , transform) > 3f) return;
-            //if (_animator.GetFloat(AnimationID.MovementID) > .7f) return;
+            if (!_animator.AnimationAtTag("Attack")) return;
 
             Transform tempEnemy = null;
             var distance = Mathf.Infinity;

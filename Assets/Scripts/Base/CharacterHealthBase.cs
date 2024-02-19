@@ -1,6 +1,7 @@
 ﻿using System;
 using GGG.Tool;
 using Manager;
+using ScriptObjects.Health.CharacterHealthInfo;
 using UnityEngine;
 
 namespace Base
@@ -12,6 +13,8 @@ namespace Base
         protected Transform CurrentAttacker;
 
         protected Animator Anim;
+
+        [SerializeField] protected CharacterHealthInfo _characterHealthInfo;
 
         protected virtual void OnEnable()
         {
@@ -27,6 +30,11 @@ namespace Base
         private void Awake()
         {
             Anim = GetComponent<Animator>();
+        }
+        
+        private void Start()
+        {
+            _characterHealthInfo.InitCharacterHealthInfo();
         }
 
         private void Update()
@@ -58,7 +66,7 @@ namespace Base
 
         protected void TakeDamage(float damage)
         {
-            
+            _characterHealthInfo.Damage(damage);
         }
         
         /// <summary>
@@ -89,7 +97,7 @@ namespace Base
             
             SetAttacker(attack);
             CharacterHitAction(damage , hitName , parryName);
-            TakeDamage(damage);
+            _characterHealthInfo.DamageToStrength(damage);
         }
 
         private void OnCharacterFinishEventHandler(string hitName, Transform attacker, Transform self)
