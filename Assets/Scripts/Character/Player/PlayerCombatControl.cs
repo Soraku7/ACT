@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using GGG.Tool;
 using Input;
 using Manager;
@@ -28,6 +29,7 @@ namespace Character
         private int _hitIndex;
 
         private int _finishComboIndex;
+        private bool _canFinish;    
 
         [SerializeField, Header("攻击检测")] private float _detectionRange;
         [SerializeField, Header("攻击检测")] private float _detectionDistance;
@@ -43,9 +45,20 @@ namespace Character
             if (Camera.main != null) _camera = Camera.main.transform;
         }
 
+        private void OnEnable()
+        {
+            GameEventManager.MainInstance.AddEventListening<bool>("EnableFinish" , EnableFinishEvenHandler);
+        }
+
+        private void OnDisable()
+        {
+            GameEventManager.MainInstance.RemoveEvent<bool>("EnableFinish" , EnableFinishEvenHandler);
+        }
+
         private void Start()
         {
             _canAttackInput = true;
+            _canFinish = false;
             _currentCombo = _baseCombo;
         }
 
@@ -250,6 +263,7 @@ namespace Character
             }
 
             _currentEnemy = tempEnemy != null ? tempEnemy : _currentEnemy;
+            _canFinish = false;
         }
 
         private void ClearEnemy()
@@ -336,8 +350,11 @@ namespace Character
         private bool CanSpecialAttack()
         {
             if (_animator.AnimationAtTag("Finish")) return false;
+            if (_animator.AnimationAtTag("Assassinate")) return false;
             if (_currentEnemy == null) return false;
             if (_currentComboCount < 2) return false;
+            if (!_canFinish) return false;
+            
             return true;
         }
 
@@ -417,6 +434,13 @@ namespace Character
                     _assassinCombo.TryGetOneHitName(_finishComboIndex, 0), transform, _currentEnemy);
                 ResetComboInfo();
             }
+        }
+
+        private void EnableFinishEvenHandler(bool apply)
+        {
+            if (_canFinish) return;
+            _canFinish = apply;
+            Debug.Log("可以处决");
         }
     }
 }

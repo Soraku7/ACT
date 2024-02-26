@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 1_2
   m_EditorClassIdentifier: 
   comboName: 2
-  damage: 0
+  damage: 10
   comboHitName:
   - HitLeftFace
   comboParryName:
   - ParryLeftFace
-  coldTime: 0.6
+  coldTime: 1
   comboPositionOffset: 0

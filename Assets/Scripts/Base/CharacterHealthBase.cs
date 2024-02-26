@@ -96,7 +96,7 @@ namespace Base
             if (self != transform) return;
             
             SetAttacker(attack);
-            CharacterHitAction(damage , hitName , parryName);
+            Anim.Play(parryName);
             _characterHealthInfo.DamageToStrength(damage);
         }
 

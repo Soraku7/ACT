@@ -590,6 +590,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 473521783854488931, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: _characterHealthInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 481fcbe71235bb244b9926bef3afa74d, type: 2}
     - target: {fileID: 3723094882209543056, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1035,11 +1039,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _detectionDistance
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _enemyLayer.m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3586170096742410681, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
+      propertyPath: detectionDistance
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3997286011857402841, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: m_LocalRotation.x

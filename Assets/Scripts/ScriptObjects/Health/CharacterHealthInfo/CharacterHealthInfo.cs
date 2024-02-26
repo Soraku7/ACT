@@ -28,12 +28,14 @@ namespace ScriptObjects.Health.CharacterHealthInfo
             _maxStrength = _characterHealthBase.MaxStrength;
             _currentHP = _characterHealthBase.MaxHP;
             _currentStrength = _characterHealthBase.MaxStrength;
+            _strengthFull = true;
         }
         
         public void Damage(float damage)
         {
             if (StrengthFull)
             {
+                Debug.Log("体力值充足");
                 _currentStrength = Clamp(_currentStrength ,damage, 0f, _maxStrength);
 
                 if (_currentStrength <= 0) _strengthFull = false;
@@ -47,10 +49,11 @@ namespace ScriptObjects.Health.CharacterHealthInfo
         {
             if (StrengthFull)
             {
+                Debug.Log("体力值充足");
                 _currentStrength = Clamp(_currentStrength, damage, 0f, _maxStrength);
             }
-            _currentHP = Clamp(_currentHP , damage, 0f, _maxStrength);
-            
+            else _currentHP = Clamp(_currentHP , damage, 0f, _maxStrength);
+            if (_currentStrength <= 0) _strengthFull = false;
             Debug.Log("当前敌人血量" + _currentHP);
 
         }
