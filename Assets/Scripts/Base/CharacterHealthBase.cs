@@ -61,7 +61,6 @@ namespace Base
         /// <param name="parryName">格挡动画</param>
         protected virtual void CharacterHitAction(float damage , string hitName , string parryName)
         {
-            
         }
 
         protected void TakeDamage(float damage)
@@ -96,7 +95,7 @@ namespace Base
             if (self != transform) return;
             
             SetAttacker(attack);
-            Anim.Play(parryName);
+            CharacterHitAction(damage, hitName, parryName);
             _characterHealthInfo.DamageToStrength(damage);
         }
 

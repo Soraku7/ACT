@@ -15,7 +15,7 @@ namespace Character.Enemy
                 //不破防 进行闪避格挡计算
                 if (!Anim.AnimationAtTag("Attack"))
                 {
-                    Anim.Play(hitName , 0 , 0);
+                    Anim.Play(parryName , 0 , 0);
                 
                     GamePoolManager.MainInstance.TryGetPoolItem("BlockSound" , transform.position , Quaternion.identity);
                     _characterHealthInfo.DamageToStrength(damage);

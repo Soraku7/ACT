@@ -48,8 +48,8 @@ namespace Character
 
             if (Anim.GetBool(AnimationID.HasInputID) && Anim.AnimationAtTag("Motion"))
             {
-                if (Anim.GetFloat(AnimationID.DeltaAngleID) < -135) return;
-                if (Anim.GetFloat(AnimationID.DeltaAngleID) > 135) return;
+                // if (Anim.GetFloat(AnimationID.DeltaAngleID) < -180) return;
+                // if (Anim.GetFloat(AnimationID.DeltaAngleID) > 180) return;
                 
                 transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, _rotationAngle,
                 ref _angleVelocity, rotationSmoothTime);

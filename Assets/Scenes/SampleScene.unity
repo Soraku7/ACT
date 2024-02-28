@@ -572,7 +572,7 @@ Transform:
   m_GameObject: {fileID: 1110363474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0977, y: 1, z: 2.0348}
+  m_LocalScale: {x: 5.5803022, y: 1, z: 4.187415}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1035,11 +1035,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: aa4734215a79e76468bacab1e8038df8, type: 2}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _detectionRange
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _detectionDistance
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3190928346411385353, guid: a1aca6639f935c54e9f56a17d99df9e5, type: 3}
       propertyPath: _enemyLayer.m_Bits

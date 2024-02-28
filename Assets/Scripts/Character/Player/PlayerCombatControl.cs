@@ -37,7 +37,7 @@ namespace Character
 
         private Collider[] _units;
         private Vector3 _detectionDirection;
-        private Transform _currentEnemy;
+        public Transform _currentEnemy;
 
         private void Awake()
         {
@@ -60,27 +60,30 @@ namespace Character
             _canAttackInput = true;
             _canFinish = false;
             _currentCombo = _baseCombo;
+            _units = new Collider[] { };
         }
 
         private void Update()
         {
-            CharacterBaseAttackInput();
-            OnEndAttack();
-            
-            // UpdateDetectDirection();
+            //UpdateDetectDirection();
             GetOneEnemyUnit();
             ClearEnemy();
+            
+            CharacterBaseAttackInput();
+            OnEndAttack();
             
             LookTargetOnAttack();
             CharacterFinishAttackInput();
             MatchPosition();
             CharacterAssassinationInput();
+            
+            GetNearUnit();
         }
 
         private void FixedUpdate()
         {
-            // DetectionTarget();
-            GetNearUnit();
+            //DetectionTarget();
+            
         }
 
         private bool CanBaseAttackInput()
@@ -370,6 +373,7 @@ namespace Character
                     transform, _currentEnemy);
                 ResetComboInfo();
                 _currentComboCount = 0;
+                _canFinish = false;
             }
         }
 
