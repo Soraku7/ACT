@@ -66,7 +66,7 @@ namespace Character
         private void Update()
         {
             //UpdateDetectDirection();
-            GetOneEnemyUnit();
+            
             ClearEnemy();
             
             CharacterBaseAttackInput();
@@ -83,7 +83,7 @@ namespace Character
         private void FixedUpdate()
         {
             //DetectionTarget();
-            
+            GetOneEnemyUnit();
         }
 
         private bool CanBaseAttackInput()
@@ -266,7 +266,6 @@ namespace Character
             }
 
             _currentEnemy = tempEnemy != null ? tempEnemy : _currentEnemy;
-            _canFinish = false;
         }
 
         private void ClearEnemy()
@@ -444,6 +443,7 @@ namespace Character
         {
             if (_canFinish) return;
             _canFinish = apply;
+            
             Debug.Log("可以处决");
         }
     }

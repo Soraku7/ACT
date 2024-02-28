@@ -28,19 +28,18 @@ namespace Character.Enemy
             }
             else
             {
-                if (_characterHealthInfo.CurrentHP < 20f)
-                {
-                    GameEventManager.MainInstance.CallEvent("EnableFinish" , true);
-                }
                 
                 Anim.Play(hitName , 0 , 0);
                 
                 GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
             }
-            // Debug.Log("造成伤害");
-            // Anim.Play(hitName , 0 , 0);
-            //     
-            // GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
+            
+            if (_characterHealthInfo.CurrentHP < 20f)
+            {
+                //无论如何生命值低于20就可以处决
+                Debug.Log("生命值低于20 触发处决");
+                GameEventManager.MainInstance.CallEvent("EnableFinish" , true);
+            }
         }
     }
 }
