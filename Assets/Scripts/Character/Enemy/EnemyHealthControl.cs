@@ -19,10 +19,6 @@ namespace Character.Enemy
                 
                     GamePoolManager.MainInstance.TryGetPoolItem("BlockSound" , transform.position , Quaternion.identity);
                     _characterHealthInfo.DamageToStrength(damage);
-                    if (!_characterHealthInfo.StrengthFull)
-                    {
-                        GameEventManager.MainInstance.CallEvent("EnableFinish" , true);
-                    }
                 }
             
             }
@@ -32,6 +28,12 @@ namespace Character.Enemy
                 Anim.Play(hitName , 0 , 0);
                 
                 GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
+            }
+            
+            if (!_characterHealthInfo.StrengthFull)
+            {
+                Debug.Log("调用");
+                GameEventManager.MainInstance.CallEvent("EnableFinish" , true);
             }
             
             if (_characterHealthInfo.CurrentHP < 20f)

@@ -252,6 +252,7 @@ namespace Character
             if (_units.Length == 0) return;
             if (_currentEnemy != null && DevelopmentToos.DistanceForTarget(_currentEnemy , transform) > 3f) return;
             if (!_animator.AnimationAtTag("Attack")) return;
+            if (_animator.GetFloat(AnimationID.MovementID) > .7f) return;
 
             Transform tempEnemy = null;
             var distance = Mathf.Infinity;
@@ -271,10 +272,10 @@ namespace Character
         private void ClearEnemy()
         {
             if (_currentEnemy == null) return;
-            if (_animator.GetFloat(AnimationID.MovementID) > .7f)
-            {
-                _currentEnemy = null;
-            }
+            // if (_animator.GetFloat(AnimationID.MovementID) > .7f)
+            // {
+            //     _currentEnemy = null;
+            // }
         }
 
         private void OnDrawGizmos()
@@ -401,7 +402,7 @@ namespace Character
             {
                 _animator.MatchTarget(
                     _currentEnemy.position +
-                    (-transform.forward * _finishCombo.TryGetComboPosition(index)),
+                    (-transform.forward * combo.TryGetComboPosition(index)),
                     Quaternion.identity, AvatarTarget.Body, new MatchTargetWeightMask(Vector3.one, 0f), startTime,
                     endTime);
             }
@@ -428,7 +429,7 @@ namespace Character
         private void CharacterAssassinationInput()
         {
             if (!CanAssassination()) return;
-
+            
             if (GameInputManager.MainInstance.Takeout)
             {
                 _finishComboIndex = Random.Range(0, _assassinCombo.TryComboMaxCount());
