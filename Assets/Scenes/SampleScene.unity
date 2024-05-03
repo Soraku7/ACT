@@ -594,6 +594,14 @@ PrefabInstance:
       propertyPath: _characterHealthInfo
       value: 
       objectReference: {fileID: 11400000, guid: 481fcbe71235bb244b9926bef3afa74d, type: 2}
+    - target: {fileID: 1806316021961445899, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0007703511
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806316021961445899, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.11943406
+      objectReference: {fileID: 0}
     - target: {fileID: 3723094882209543056, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -641,6 +649,18 @@ PrefabInstance:
     - target: {fileID: 4098495276906244394, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458699750972385594, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: detectionRange
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458699750972385594, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458699750972385594, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
+      propertyPath: groundDetectionPositionOffset
+      value: -0.13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc7555af64010fb4bbfbddcb25287a58, type: 3}
