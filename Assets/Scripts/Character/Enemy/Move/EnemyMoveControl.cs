@@ -20,6 +20,7 @@ namespace Character.Enemy.Move
         {
             base.Update();
             LockTargetDirection();
+            DrawDirection();
         }
         
         //玩家在移动的时候观看AI
@@ -59,6 +60,12 @@ namespace Character.Enemy.Move
         public void SetApplyMovement(bool apply)
         {
             _applyMovement = apply;
+        }
+
+        public void DrawDirection()
+        {
+            Debug.DrawRay(transform.position + (transform.up * 0.7f),
+                EnemyManager.MainInstance.GetMainPlayer().position - transform.position, Color.yellow);
         }
     }
 }
