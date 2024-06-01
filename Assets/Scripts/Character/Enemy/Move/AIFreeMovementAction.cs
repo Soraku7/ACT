@@ -23,12 +23,14 @@ namespace Character.Enemy.Move
 
             if (!_enemyCombatControl.GetAttackCommand())
             {
-                if (DistanceForTarget() > 0.3f)
+                
+                if (DistanceForTarget() > 0.8f)
                 {
                     _enemyMoveControl.SetAnimatorMovementValue(0f , 1f);
                 }
                 else
                 {
+                    Debug.Log(DistanceForTarget());
                     _enemyMoveControl.SetAnimatorMovementValue(0f , 0f);
                 }
                 

@@ -9,7 +9,6 @@ namespace Character.Enemy.Move
     {
         private bool _applyMovement;
 
-
         protected override void Start()
         {
             base.Start();
@@ -41,18 +40,20 @@ namespace Character.Enemy.Move
         {
             if(_applyMovement)
             {
-                Anim.SetFloat(AnimationID.LockID, 1f);
-                Anim.SetFloat(AnimationID.HasInputID, horizontal, 0.2f,
+                Anim.SetBool(AnimationID.HasInputID , true);
+                Anim.SetFloat(AnimationID.LockID, 2f);
+                Anim.SetFloat(AnimationID.HorizontalID, horizontal, 0.2f,
                     Time.deltaTime);
                 Anim.SetFloat(AnimationID.VerticalID, vertical, 0.2f,
                     Time.deltaTime);
             }
             else
             {
+                Anim.SetBool(AnimationID.HasInputID , false);
                 Anim.SetFloat(AnimationID.LockID, 0f);
-                Anim.SetFloat(AnimationID.HasInputID, horizontal, 0f,
+                Anim.SetFloat(AnimationID.HorizontalID, 0, 0f,
                     Time.deltaTime);
-                Anim.SetFloat(AnimationID.VerticalID, vertical, 0f,
+                Anim.SetFloat(AnimationID.VerticalID, 0, 0f,
                     Time.deltaTime);
             }
         }
