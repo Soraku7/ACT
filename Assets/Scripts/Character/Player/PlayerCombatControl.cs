@@ -17,8 +17,6 @@ namespace Character.Player
         
         [SerializeField, Header("重攻击")] private CharacterCombo _HeavyCombo;
         [SerializeField, Header("暗杀攻击")] private CharacterCombo _assassinCombo;
-        
-        private int _currentComboCount;
 
         [SerializeField, Header("攻击检测")] private float _detectionRange;
         [SerializeField, Header("攻击检测")] private float _detectionDistance;
@@ -29,7 +27,7 @@ namespace Character.Player
 
         private void Awake()
         {
-            Anim = GetComponent<Animator>();
+            base.Awake();
             if (Camera.main != null) _camera = Camera.main.transform;
         }
 
@@ -59,9 +57,7 @@ namespace Character.Player
             ClearEnemy();
             
             CharacterBaseAttackInput();
-            OnEndAttack();
             
-            LookTargetOnAttack();
             CharacterFinishAttackInput();
             MatchPosition();
             CharacterAssassinationInput();
@@ -89,8 +85,9 @@ namespace Character.Player
             return true;
         }
 
-        private void CharacterBaseAttackInput()
+        protected override void CharacterBaseAttackInput()
         {
+            base.CharacterBaseAttackInput();
             if (!CanBaseAttackInput()) return;
             if (GameInputManager.MainInstance.LAttack)
             {
@@ -104,11 +101,11 @@ namespace Character.Player
             }
             else if (GameInputManager.MainInstance.RAttack)
             {
-                Debug.Log(_currentComboCount);
-                if (_currentComboCount >= 3)
+                Debug.Log(CurrentComboCount);
+                if (CurrentComboCount >= 3)
                 {
                     ChangeComboData(_HeavyCombo);
-                    switch (_currentComboCount)
+                    switch (CurrentComboCount)
                     {
                         case 3:
                             CurrentComboIndex = 0;
@@ -127,49 +124,7 @@ namespace Character.Player
                 }
 
                 ExecuteComboAction();
-                _currentComboCount = 0;
-            }
-        }
-
-        /// <summary>
-        /// 退出连招
-        /// </summary>
-        private void ExecuteComboAction()
-        {
-            //更新当前Hit的索引值
-            HitIndex = 0;
-
-            _currentComboCount += (CurrentCombo == baseCombo) ? 1 : 0;
-            if (CurrentComboIndex == CurrentCombo.TryComboMaxCount())
-            {
-                //当前攻击动作为最后一个动作
-                CurrentComboIndex = 0;
-            }
-
-            MaxColdTime = CurrentCombo.TryGetColdTime(CurrentComboIndex);
-            Anim.CrossFadeInFixedTime(CurrentCombo.TryGetOneComboAction(CurrentComboIndex), 0.1555f, 0, 0f);
-            TimeManager.MainInstance.TryGetOneTimer(MaxColdTime, UpdateComboInfo);
-            CanAttackInput = false;
-        }
-
-        /// <summary>
-        /// 重置组合技
-        /// </summary>
-        private void ResetComboInfo()
-        {
-            CurrentComboIndex = 0;
-            MaxColdTime = 0;
-            HitIndex = 0;
-        }
-
-        /// <summary>
-        /// 重置连招
-        /// </summary>
-        private void OnEndAttack()
-        {
-            if (Anim.AnimationAtTag("Motion") && CanAttackInput)
-            {
-                ResetComboInfo();
+                CurrentComboCount = 0;
             }
         }
 
@@ -265,21 +220,6 @@ namespace Character.Player
         }
 
         /// <summary>
-        /// 角色朝向攻击目标
-        /// </summary>
-        private void LookTargetOnAttack()
-        {
-            if (currentEnemy == null) return;
-            if (DevelopmentToos.DistanceForTarget(currentEnemy, transform) > 5f) return;
-            if (Anim.AnimationAtTag("Attack") && Anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.5f)
-            {
-                //动画未执行到一半
-                // transform.rotation = Quaternion.LookRotation(currentEnemy.position);
-                transform.Look(currentEnemy.position, 50f);
-            }
-        }
-
-        /// <summary>
         /// 是否进行处决
         /// </summary>
         /// <returns></returns>
@@ -288,7 +228,7 @@ namespace Character.Player
             if (Anim.AnimationAtTag("Finish")) return false;
             if (Anim.AnimationAtTag("Assassinate")) return false;
             if (currentEnemy == null) return false;
-            if (_currentComboCount < 2) return false;
+            if (CurrentComboCount < 2) return false;
             if (!CanFinish) return false;
             
             return true;
@@ -305,7 +245,7 @@ namespace Character.Player
                 GameEventManager.MainInstance.CallEvent("Execute", finishCombo.TryGetOneHitName(CurrentComboIndex, 0),
                     transform, currentEnemy);
                 ResetComboInfo();
-                _currentComboCount = 0;
+                CurrentComboCount = 0;
                 CanFinish = false;
             }
         }
