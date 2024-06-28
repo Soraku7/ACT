@@ -1,10 +1,11 @@
 ﻿using BehaviorDesigner.Runtime.Tasks;
 using Character.Enemy.Combat;
+using Character.Enemy.Move;
 using Manager;
 using Unilts.Tools.DevelopmentTool;
 using UnityEngine;
 
-namespace Character.Enemy.Move
+namespace Character.Enemy.AI
 {
     public class AIFreeMovementAction : Action
     {

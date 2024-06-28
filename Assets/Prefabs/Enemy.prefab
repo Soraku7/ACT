@@ -1653,8 +1653,8 @@ GameObject:
   - component: {fileID: 6811661186479102019}
   - component: {fileID: 473521783854488931}
   - component: {fileID: 8458699750972385594}
-  - component: {fileID: 1387963146}
   - component: {fileID: 1387963161}
+  - component: {fileID: 1387963146}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -1763,6 +1763,23 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1387963161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723094882209543056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c312f81a86d4792a168e0dad1b98384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEnemy: {fileID: 0}
+  baseCombo: {fileID: 11400000, guid: 21c8f5f7c1cfe144096d3ab94514ca47, type: 2}
+  finishCombo: {fileID: 11400000, guid: d5e23e2804bd7eb43b9de93b04d5c082, type: 2}
+  animationCrossNormalTime: 0
+  attackCommand: 0
 --- !u!114 &1387963146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1784,15 +1801,21 @@ MonoBehaviour:
   resetValuesOnRestart: 0
   externalBehavior: {fileID: 0}
   mBehaviorSource:
-    behaviorName: Behavior
+    behaviorName: Enemy
     behaviorDescription: 
     mTaskData:
       types: []
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(478,94.2)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(0,160)"},"ID":1,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(0,120)"},"ID":2,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":"","IsShared":true,"IsDynamic":true,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"Character.Enemy.Move.AIFreeMovementAction","NodeData":{"Offset":"(0,190)"},"ID":3,"Name":"AI
-        Free Movement Action","Instant":true}]}]}}'
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(395,11.1999969)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-5,121.2)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":0},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(-4.299988,150)"},"ID":2,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-298.9999,108.200012)"},"ID":3,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Character.Enemy.AI.AIAttackCommandCondition","NodeData":{"Offset":"(-201,171.200012)"},"ID":4,"Name":"AI
+        Attack Command Condition","Instant":true},{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(-0.2999878,181)"},"ID":5,"Name":"Inverter","Instant":true,"Children":[{"Type":"Character.Enemy.AI.AIAttackDistanceCondition","NodeData":{"Offset":"(0,130)"},"ID":6,"Name":"AI
+        Attack Distance Condition","Instant":true,"Single_attackDistance":3}]},{"Type":"Character.Enemy.AI.AIComboAction","NodeData":{"Offset":"(150,175.200012)"},"ID":7,"Name":"AI
+        Combo Action","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(115.000114,120)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(-90,120)"},"ID":9,"Name":"Inverter","Instant":true,"Children":[{"Type":"Character.Enemy.AI.AIAttackCommandCondition","NodeData":{"Offset":"(0,150)"},"ID":10,"Name":"AI
+        Attack Command Condition","Instant":true}]},{"Type":"Character.Enemy.AI.AIFreeMovementAction","NodeData":{"Offset":"(116,121.200012)"},"ID":11,"Name":"AI
+        Free Movement Action","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(595.9092,130)"},"ID":12,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"Character.Enemy.AI.AIAttackCommandCondition","NodeData":{"Offset":"(-134.545532,110.909012)"},"ID":13,"Name":"AI
+        Attack Command Condition","Instant":true},{"Type":"Character.Enemy.AI.AIJustMoveForward","NodeData":{"Offset":"(134.4014,107.5325)"},"ID":14,"Name":"AI
+        Just Move Forward","Instant":true}]}]}]}}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
@@ -1804,18 +1827,6 @@ MonoBehaviour:
       Version: 1.7.3
   gizmoViewMode: 2
   showBehaviorDesignerGizmo: 1
---- !u!114 &1387963161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3723094882209543056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c312f81a86d4792a168e0dad1b98384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3738657303520414553
 GameObject:
   m_ObjectHideFlags: 0

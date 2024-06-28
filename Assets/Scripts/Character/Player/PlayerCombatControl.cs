@@ -25,7 +25,7 @@ namespace Character.Player
         private Collider[] _units;
         private Vector3 _detectionDirection;
 
-        private void Awake()
+        protected override void Awake()
         {
             base.Awake();
             if (Camera.main != null) _camera = Camera.main.transform;
@@ -127,19 +127,7 @@ namespace Character.Player
                 CurrentComboCount = 0;
             }
         }
-
-        /// <summary>
-        /// 更换出招表格
-        /// </summary>
-        /// <param name="comboData"></param>
-        private void ChangeComboData(CharacterCombo comboData)
-        {
-            if (CurrentCombo != comboData)
-            {
-                CurrentCombo = comboData;
-                ResetComboInfo();
-            }
-        }
+        
 
         /// <summary>
         /// 冲刺攻击
