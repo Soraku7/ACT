@@ -7,6 +7,12 @@ namespace Character.Enemy
 {
     public class EnemyHealthControl : CharacterHealthBase
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            _characterHealthInfo = ScriptableObject.Instantiate(healthInfo);
+        }
+        
         protected override void CharacterHitAction(float damage , string hitName, string parryName)
         {
             // //damage > 30 为破防攻击

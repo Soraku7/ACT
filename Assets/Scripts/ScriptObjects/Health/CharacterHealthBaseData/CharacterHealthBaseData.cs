@@ -2,7 +2,7 @@
 
 namespace ScriptObjects.Health.CharacterHealthBase
 {
-    [CreateAssetMenu(fileName = "ComboData", menuName = "Create/Character/HealthData/BaseData", order = 0)]
+    [CreateAssetMenu(fileName = "BaseHealthData", menuName = "Create/Character/HealthData/BaseHealthData", order = 0)]
     public class CharacterHealthBaseData : ScriptableObject
     {
         [SerializeField] private float _maxHP;

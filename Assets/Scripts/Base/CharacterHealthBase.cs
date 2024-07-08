@@ -3,6 +3,7 @@ using GGG.Tool;
 using Manager;
 using ScriptObjects.Health.CharacterHealthInfo;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Base
 {
@@ -14,7 +15,8 @@ namespace Base
 
         protected Animator Anim;
 
-        [SerializeField] protected CharacterHealthInfo _characterHealthInfo;
+        [SerializeField, Header("角色生命值信息")] protected CharacterHealthInfo healthInfo;
+        protected CharacterHealthInfo _characterHealthInfo;
 
         protected virtual void OnEnable()
         {
@@ -27,7 +29,7 @@ namespace Base
                 OnCharacterAssassinationEventHandler);
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Anim = GetComponent<Animator>();
         }
@@ -37,7 +39,7 @@ namespace Base
             _characterHealthInfo.InitCharacterHealthInfo();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             OnHitCharacterLookAttacker();
         }
