@@ -990,7 +990,7 @@ GameObject:
   - component: {fileID: 3190928346411385353}
   - component: {fileID: 8137869748120138129}
   - component: {fileID: 9173324316525492582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1050,9 +1050,9 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.79
-  m_Radius: 0.34
+  m_Radius: 0.23
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -1069,13 +1069,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDetectionPositionOffset: -0.04
-  detectionRange: 0.13
+  detectionRange: 0.22
   groundLayer:
     serializedVersion: 2
     m_Bits: 192
   rotationSmoothTime: 0.21
-  _slowFootTime: 0
-  _fastFootTime: 0
+  _slowFootTime: 0.37
+  _fastFootTime: 0.3
 --- !u!114 &3586170096742410681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,16 +1105,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
-  baseCombo: {fileID: 0}
-  finishCombo: {fileID: 0}
+  baseCombo: {fileID: 11400000, guid: 21c8f5f7c1cfe144096d3ab94514ca47, type: 2}
+  finishCombo: {fileID: 11400000, guid: d5e23e2804bd7eb43b9de93b04d5c082, type: 2}
   animationCrossNormalTime: 0
-  _HeavyCombo: {fileID: 0}
-  _assassinCombo: {fileID: 0}
-  _detectionRange: 0
+  _HeavyCombo: {fileID: 11400000, guid: 8539d63b399985c4f9980c6cac9aab45, type: 2}
+  _assassinCombo: {fileID: 11400000, guid: aa4734215a79e76468bacab1e8038df8, type: 2}
+  _detectionRange: 5
   _detectionDistance: 0
   _enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!114 &8137869748120138129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760a431c2d254a8d9802347b80460d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthInfo: {fileID: 0}
+  healthInfo: {fileID: 11400000, guid: 57c71c8eb476e344d9a91d443d723813, type: 2}
 --- !u!1 &2323314513786476714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,7 +1947,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4028735442183624038}
-  m_LocalRotation: {x: 0.000770351, y: -0.045089014, z: 0.119434044, w: 0.9918175}
+  m_LocalRotation: {x: 0.00077035103, y: -0.045089014, z: 0.11943405, w: 0.9918175}
   m_LocalPosition: {x: 0.022822417, y: -0.00000015258789, z: 0.000000104904174}
   m_LocalScale: {x: 1.0000004, y: 1, z: 1.0000002}
   m_ConstrainProportionsScale: 0

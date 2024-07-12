@@ -16,6 +16,7 @@ namespace Character.Enemy.Combat
 
         public void AIBaseAttackInput()
         {
+            currentEnemy = GameObject.FindWithTag("Player").transform;
             if (!CanAttackInput) return;
             ChangeComboData(baseCombo);
             ExecuteComboAction();

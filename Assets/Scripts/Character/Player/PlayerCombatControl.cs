@@ -159,6 +159,9 @@ namespace Character.Player
                 QueryTriggerInteraction.Ignore);
         }
 
+        /// <summary>
+        /// 获取敌人
+        /// </summary>
         private void GetOneEnemyUnit()
         {
             if (_units.Length == 0) return;

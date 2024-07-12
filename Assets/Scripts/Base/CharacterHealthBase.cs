@@ -122,5 +122,7 @@ namespace Base
             TakeDamage(damage);
             GamePoolManager.MainInstance.TryGetPoolItem("HitSound" , transform.position , Quaternion.identity);
         }
+        
+        
     }
 }
