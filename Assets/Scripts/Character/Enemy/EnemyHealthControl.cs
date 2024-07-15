@@ -11,7 +11,10 @@ namespace Character.Enemy
         {
             base.Awake();
             _characterHealthInfo = ScriptableObject.Instantiate(healthInfo);
+            
+            EnemyManager.MainInstance.AddEnemyUnit(gameObject);
         }
+
         
         protected override void CharacterHitAction(float damage , string hitName, string parryName)
         {
