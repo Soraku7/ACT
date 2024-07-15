@@ -60,7 +60,7 @@ namespace Character.Enemy.Combat
         /// <returns></returns>
         public bool GetAttackCommand() => attackCommand;
 
-        private void SetAttackCommand(bool command)
+        public void SetAttackCommand(bool command)
         {
             if (!CheckAIState())
             {
