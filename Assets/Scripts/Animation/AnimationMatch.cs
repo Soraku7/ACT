@@ -33,8 +33,10 @@ public class AnimationMatch : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.IsInTransition(layerIndex)) return;
+        
         if (!animator.isMatchingTarget)
         {
             animator.MatchTarget(_matchPosition, _matchQuaternion, avatarTarget,
