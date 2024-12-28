@@ -5,12 +5,12 @@ namespace Tool
 {
     public class CopyComponent : EditorWindow
     {
-        static Component[] copyComponents;
+        private static Component[] _copyComponents;
 
         [MenuItem("GameObject/Copy Components")]
         static void Copy()
         {
-            copyComponents = Selection.activeGameObject.GetComponents<Component>();
+            _copyComponents = Selection.activeGameObject.GetComponents<Component>();
         }
         
         [MenuItem("GameObject/Past Components")]
@@ -18,9 +18,9 @@ namespace Tool
         {
             foreach (var targetGameObject in Selection.gameObjects)
             {
-                if(targetGameObject == null || copyComponents == null) continue;
+                if(targetGameObject == null || _copyComponents == null) continue;
 
-                foreach (var copyComponent in copyComponents)
+                foreach (var copyComponent in _copyComponents)
                 {
                     if (!copyComponent) continue;
                     

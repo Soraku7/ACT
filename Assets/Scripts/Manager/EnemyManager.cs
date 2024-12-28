@@ -61,6 +61,8 @@ namespace Manager
             {
                 //随机设置敌人攻击
                 EnemyCombatControl enemyCombatControl;
+                
+                //随机设置敌人攻击
                 GameObject temp = _activeEnemies[Random.Range(0, _activeEnemies.Count())];
                 
                 if (temp.TryGetComponent(out enemyCombatControl))
@@ -70,7 +72,20 @@ namespace Manager
                 
                 yield return _waitForSeconds;
             }
-            
+        }
+
+        /// <summary>
+        /// 停止所有可行动对象
+        /// </summary>
+        public void StopAllActiveUnit()
+        {
+            foreach (var e in _activeEnemies)
+            {
+                if (e.TryGetComponent(out EnemyCombatControl enemyCombatControl))
+                {
+                    enemyCombatControl.StopAllAction();
+                }
+            }
         }
 
         /// <summary>
