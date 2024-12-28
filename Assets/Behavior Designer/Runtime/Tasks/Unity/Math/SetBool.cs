@@ -17,7 +17,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
 
         public override void OnReset()
         {
-            boolValue = false;
+            boolValue.Value = false;
+            storeResult.Value = false;
         }
     }
 }

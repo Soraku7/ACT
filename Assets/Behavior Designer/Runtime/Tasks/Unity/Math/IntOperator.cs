@@ -58,9 +58,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
         public override void OnReset()
         {
             operation = Operation.Add;
-            integer1 = 0;
-            integer2 = 0;
-            storeResult = 0;
+            integer1.Value = 0;
+            integer2.Value = 0;
+            storeResult.Value = 0;
         }
     }
 }

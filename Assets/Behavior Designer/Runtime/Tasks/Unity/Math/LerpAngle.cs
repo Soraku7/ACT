@@ -24,10 +24,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
 
         public override void OnReset()
         {
-            fromValue = 0;
-            toValue = 0;
-            lerpAmount = 0;
-            storeResult = 0;
+            fromValue = toValue = lerpAmount = storeResult = 0;
         }
     }
 }

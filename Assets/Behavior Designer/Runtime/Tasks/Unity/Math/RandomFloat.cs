@@ -30,7 +30,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
             min.Value = 0;
             max.Value = 0;
             inclusive = false;
-            storeResult = 0;
+            storeResult.Value = 0;
         }
     }
 }

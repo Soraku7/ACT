@@ -24,9 +24,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector2
 
         public override void OnReset()
         {
-            fromVector2 = Vector2.zero; 
-            toVector2 = Vector2.zero; 
-            storeResult = Vector2.zero;
+            fromVector2 = toVector2 = storeResult = Vector2.zero;
             lerpAmount = 0;
         }
     }

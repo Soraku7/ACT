@@ -29,7 +29,7 @@ namespace BehaviorDesigner.Runtime.Tasks
             // child tasks from running.
             interruptStatus = status;
 
-            BehaviorManager.instance.Interrupt(Owner, this, status);
+            BehaviorManager.instance.Interrupt(Owner, this);
         }
 
         public override TaskStatus OverrideStatus()

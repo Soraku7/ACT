@@ -108,7 +108,7 @@
         {
             // Interrupt the currently running index if a lower priority child returns a status of running or success.
             if (executionStatus != TaskStatus.Failure && executionStatus != TaskStatus.Inactive) {
-                BehaviorManager.instance.Interrupt(Owner, children[storedCurrentChildIndex - 1], this, TaskStatus.Inactive);
+                BehaviorManager.instance.Interrupt(Owner, children[storedCurrentChildIndex - 1], this);
             } else {
                 // The lower priority children returned the same status so resume with the current child
                 currentChildIndex = storedCurrentChildIndex;

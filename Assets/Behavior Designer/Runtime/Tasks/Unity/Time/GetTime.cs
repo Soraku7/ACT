@@ -17,7 +17,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityTime
 
         public override void OnReset()
         {
-            storeResult = 0;
+            storeResult.Value = 0;
         }
     }
 }

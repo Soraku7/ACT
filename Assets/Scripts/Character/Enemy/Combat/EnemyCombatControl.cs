@@ -70,5 +70,21 @@ namespace Character.Enemy.Combat
 
             attackCommand = command;
         }
+        
+        /// <summary>
+        /// 停止所有行为
+        /// </summary>
+        public void StopAllAction()
+        {
+            if (attackCommand)
+            {
+                ResetAttackCommand();
+            }
+
+            if (Anim.AnimationAtTag("Attack"))
+            {
+                Anim.Play("Idle" , 0 , 0);
+            }
+        }
     }
 }

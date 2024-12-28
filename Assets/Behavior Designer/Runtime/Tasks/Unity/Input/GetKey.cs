@@ -14,7 +14,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityInput
 
         public override TaskStatus OnUpdate()
         {
-            storeResult.Value = UnityEngine.Input.GetKey(key);
+            storeResult.Value = Input.GetKey(key);
             return TaskStatus.Success;
         }
 

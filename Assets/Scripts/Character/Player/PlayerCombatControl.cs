@@ -230,12 +230,15 @@ namespace Character.Player
             if (!CanSpecialAttack()) return;
             if (GameInputManager.MainInstance.Grab)
             {
+                //播放处决动画
                 CurrentComboIndex = Random.Range(0, finishCombo.TryComboMaxCount());
                 Anim.Play(finishCombo.TryGetOneComboAction(CurrentComboIndex));
 
                 GameEventManager.MainInstance.CallEvent("Execute", finishCombo.TryGetOneHitName(CurrentComboIndex, 0),
                     transform, currentEnemy);
                 ResetComboInfo();
+                
+                EnemyManager.MainInstance.StopAllActiveUnit();
                 CurrentComboCount = 0;
                 CanFinish = false;
             }

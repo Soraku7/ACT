@@ -13,14 +13,14 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimation
         public SharedBool storeValue;
 
         // cache the animation component
-        private UnityEngine.Animation animation;
+        private Animation animation;
         private GameObject prevGameObject;
 
         public override void OnStart()
         {
             var currentGameObject = GetDefaultGameObject(targetGameObject.Value);
             if (currentGameObject != prevGameObject) {
-                animation = currentGameObject.GetComponent<UnityEngine.Animation>();
+                animation = currentGameObject.GetComponent<Animation>();
                 prevGameObject = currentGameObject;
             }
         }

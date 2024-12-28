@@ -57,9 +57,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
         public override void OnReset()
         {
             operation = Operation.Add;
-            float1 = 0;
-            float2 = 0;
-            storeResult = 0;
+            float1.Value = 0;
+            float2.Value = 0;
+            storeResult.Value = 0;
         }
     }
 }

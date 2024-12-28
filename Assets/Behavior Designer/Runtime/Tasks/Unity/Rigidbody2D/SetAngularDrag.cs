@@ -30,7 +30,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityRigidbody2D
                 return TaskStatus.Failure;
             }
 
-            rigidbody2D.angularDamping = angularDrag.Value;
+            rigidbody2D.angularDrag = angularDrag.Value;
 
             return TaskStatus.Success;
         }

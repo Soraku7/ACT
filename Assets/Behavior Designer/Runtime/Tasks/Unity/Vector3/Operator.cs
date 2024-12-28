@@ -41,9 +41,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector3
         public override void OnReset()
         {
             operation = Operation.Add;
-            firstVector3 = Vector3.zero; 
-            secondVector3 = Vector3.zero; 
-            storeResult = Vector3.zero;
+            firstVector3 = secondVector3 = storeResult = Vector3.zero;
         }
     }
 }

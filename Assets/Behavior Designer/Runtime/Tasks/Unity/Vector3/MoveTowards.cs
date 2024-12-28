@@ -24,9 +24,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector3
 
         public override void OnReset()
         {
-            currentPosition = Vector3.zero; 
-            targetPosition = Vector3.zero;
-            storeResult = Vector3.zero;
+            currentPosition = targetPosition = storeResult = Vector3.zero;
             speed = 0;
         }
     }

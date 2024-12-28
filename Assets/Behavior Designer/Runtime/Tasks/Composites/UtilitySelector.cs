@@ -141,7 +141,7 @@ namespace BehaviorDesigner.Runtime.Tasks
 
             // If the index is different then the current child task should be aborted and the higher utility task should be run.
             if (prevChildIndex != currentChildIndex) {
-                BehaviorManager.instance.Interrupt(Owner, children[prevChildIndex], this, TaskStatus.Failure);
+                BehaviorManager.instance.Interrupt(Owner, children[prevChildIndex], this);
                 executionStatus = TaskStatus.Inactive;
             }
         }

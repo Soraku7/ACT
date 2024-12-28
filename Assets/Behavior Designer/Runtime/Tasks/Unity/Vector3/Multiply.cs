@@ -22,8 +22,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector3
 
         public override void OnReset()
         {
-            vector3Variable = Vector3.zero; 
-            storeResult = Vector3.zero;
+            vector3Variable = storeResult = Vector3.zero;
             multiplyBy = 0;
         }
     }

@@ -11,7 +11,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityInput
 
         public override TaskStatus OnUpdate()
         {
-            return UnityEngine.Input.GetMouseButtonUp(buttonIndex.Value) ? TaskStatus.Success : TaskStatus.Failure;
+            return Input.GetMouseButtonUp(buttonIndex.Value) ? TaskStatus.Success : TaskStatus.Failure;
         }
 
         public override void OnReset()

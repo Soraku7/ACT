@@ -22,8 +22,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector2
 
         public override void OnReset()
         {
-            leftHandSide = Vector2.zero; 
-            rightHandSide = Vector2.zero;
+            leftHandSide = rightHandSide = Vector2.zero;
             storeResult = 0;
         }
     }

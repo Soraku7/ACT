@@ -26,11 +26,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector3
 
         public override void OnReset()
         {
-            currentRotation = Vector3.zero; 
-            targetRotation = Vector3.zero; 
-            storeResult = Vector3.zero;
-            maxDegreesDelta = 0;
-            maxMagnitudeDelta = 0;
+            currentRotation = targetRotation = storeResult = Vector3.zero;
+            maxDegreesDelta = maxMagnitudeDelta = 0;
         }
     }
 }

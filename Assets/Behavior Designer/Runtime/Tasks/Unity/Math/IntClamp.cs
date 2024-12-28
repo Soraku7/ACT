@@ -21,9 +21,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.Math
 
         public override void OnReset()
         {
-            intVariable = 0;
-            minValue = 0;
-            maxValue = 0;
+            intVariable = minValue = maxValue = 0;
         }
     }
 }

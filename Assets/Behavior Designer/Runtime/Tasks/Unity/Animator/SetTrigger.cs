@@ -38,7 +38,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityAnimator
         public override void OnReset()
         {
             targetGameObject = null;
-            paramaterName = "";
+            paramaterName.Value = "";
         }
     }
 }

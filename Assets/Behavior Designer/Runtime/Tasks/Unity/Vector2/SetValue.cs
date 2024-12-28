@@ -19,8 +19,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Unity.UnityVector2
 
         public override void OnReset()
         {
-            vector2Value = Vector2.zero; 
-            vector2Variable = Vector2.zero;
+            vector2Value = vector2Variable = Vector2.zero;
         }
     }
 }
