@@ -87,19 +87,6 @@ namespace Manager
                 }
             }
         }
-
-        /// <summary>
-        /// 停止所有可行动对象
-        /// </summary>
-        public void StopAllActiveUnit()
-        {
-            foreach (var e in _activeEnemies)
-            {
-                if (e.TryGetComponent(out EnemyCombatControl enemyCombatControl))
-                {
-                    enemyCombatControl.StopAllAction();
-                }
-            }
-        }
+        
     }
 }
