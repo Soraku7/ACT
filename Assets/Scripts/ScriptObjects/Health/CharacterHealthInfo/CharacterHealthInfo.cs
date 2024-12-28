@@ -49,12 +49,12 @@ namespace ScriptObjects.Health.CharacterHealthInfo
         {
             if (StrengthFull)
             {
-                Debug.Log("体力值充足");
+                Debug.Log("架势充足");
                 _currentStrength = Clamp(_currentStrength, damage, 0f, _maxStrength);
             }
-            else _currentHP = Clamp(_currentHP , damage, 0f, _maxStrength);
+            else _currentStrength = Clamp(_currentStrength , damage, 0f, _maxStrength);
             if (_currentStrength <= 0) _strengthFull = false;
-            Debug.Log("当前敌人血量" + _currentHP);
+            Debug.Log("当前敌人架势" + _currentStrength);
 
         }
 

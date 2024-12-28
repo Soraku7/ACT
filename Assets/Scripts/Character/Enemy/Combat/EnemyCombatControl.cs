@@ -1,7 +1,6 @@
 ﻿using Base;
 using GGG.Tool;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Character.Enemy.Combat
 {
@@ -35,7 +34,7 @@ namespace Character.Enemy.Combat
             MaxColdTime = 0;
             CanAttackInput = true;
         }
-        
+
         /// <summary>
         /// 判断当前AI是否能够接受攻击指令
         /// </summary>
@@ -51,7 +50,7 @@ namespace Character.Enemy.Combat
 
         private void ResetAttackCommand()
         {
-            attackCommand = false; 
+            attackCommand = false;
         }
 
         /// <summary>
@@ -69,6 +68,22 @@ namespace Character.Enemy.Combat
             }
 
             attackCommand = command;
+        }
+
+        /// <summary>
+        /// 停止所有行为
+        /// </summary>
+        public void StopAllAction()
+        {
+            if (attackCommand)
+            {
+                ResetAttackCommand();
+            }
+
+            if (Anim.AnimationAtTag("Attack"))
+            {
+                Anim.Play("Idle" , 0 , 0);
+            }
         }
     }
 }
